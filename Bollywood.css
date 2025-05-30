@@ -1,0 +1,726 @@
+body{
+    margin: 0;
+    text-align: center;
+    height: 100vh;
+    background-image: radial-gradient(transparent 20%, blue);
+    /* background: radial-gradient(rgb(66, 208, 255), rgb(179, 179, 254), rgb(143, 143, 245), rgb(101, 101, 236), rgb(58, 58, 186), rgba(0, 0, 139, 1)); */
+    background-color:rgb(182, 208, 255);
+
+    font-family: "Comfortaa", sans-serif;
+    font-optical-sizing: auto;
+    font-style: normal;
+    font-weight: 900;
+}
+
+#actors{
+    display: flex;
+    justify-content: space-evenly;
+    flex-wrap: wrap;
+    gap: 50px;
+    margin: 3%;
+}
+
+#Heros, #Heroine{
+    margin: 10px;
+    padding: 20px;
+    border-radius: 15px;
+    background-color:rgb(0, 132, 255);
+    position: relative;
+}
+
+#grid_heros, #grid_heroines {
+    width: 100%;
+    display: grid;
+    grid-template-columns: 30% 40% 30%;
+}
+
+@media screen and (max-width: 500px) {
+    #grid_heros, #grid_heroines {
+        /* width: 100%; */
+        display:inline-flex;
+    }
+
+    .play-check-btn{
+        font-weight: 500;
+    }
+}
+
+@media screen and (max-width: 405px) {    
+    #grid_heros, #grid_heroines {
+        width: 100%;
+        display:grid;
+        grid-template-columns: 30% 40% 30%;
+    }
+}
+
+#play-game-container{
+    /* height: 10%; */
+    justify-self: center;
+    width: 50%;
+    margin-top: 30px;
+    padding: 20px;
+    border-radius: 15px;
+    background-color:rgb(0, 132, 255);
+    position: relative;
+}
+
+@property --angle{
+    syntax: "<angle>";
+    initial-value: 0deg;
+    inherits: false;
+}
+
+#Heros::after, #Heroine::after, #play-game-container::after , #Heros::before, #Heroine::before, #play-game-container::before{
+    content: '';
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    background-image: conic-gradient(from var(--angle), red,orange,yellow,rgb(0, 255, 0),orange,rgb(255, 9, 50));
+    top: 50%;
+    left: 50%;
+    translate: -50% -50%;
+    z-index: -1;
+    padding: 7px;
+    border-radius: 1rem;
+    animation: 3s spin linear infinite;
+}
+
+@keyframes spin {
+    from{
+        --angle: 0deg;
+    }
+    to{
+        --angle: 360deg;
+    }
+}
+
+#Heros::before, #Heroine::before, #play-game-container::before{
+    filter: blur(1.5rem);
+    opacity: 0.5;
+}
+
+.hero_inputs, .heroine_inputs{
+    font-size: 90%;
+    height: 30px;
+
+    width: 100%;
+}
+
+#hero_label, #heroine_label{
+    width: 100%;
+    padding-top: 5px;
+    font-size: 20px;    /* in mobile font-size : 17px */
+    color: rgb(16, 16, 121);
+}
+
+@media screen and (max-width: 500px){
+    #hero_label, #heroine_label{
+        font-size: 16px;    /* in mobile font-size : 17px */
+    }
+}
+
+.actor_btn{
+    background: linear-gradient(to right, rgb(254, 250, 2), rgb(236, 174, 4));
+    color: rgb(94, 61, 0);
+    border-radius: 10px;
+    height: 35px;
+    width: 100%;
+    margin-left: 10px;
+    cursor: pointer;
+    position: relative;
+    z-index: 0;
+    border: none;
+
+    min-width: 5%;
+}
+
+.actor_btn::after{
+    content: '';
+    height: 100%;
+    width: 0px;
+    background: linear-gradient(to right, rgb(224, 86, 73), rgb(24, 68, 226));
+    border-radius: 10px;
+    position: absolute;
+    left: 0;
+    top: 0;
+    z-index: -1;
+    transition: 250ms ease-in-out;
+}
+
+.actor_btn:hover::after{
+    width: 100%;
+}
+
+.actor_btn:hover{
+    color: azure;
+}
+
+#hero-name, #heroine-name{
+    border: 1px solid darkblue;
+    border-radius: 6px;
+    background-color: rgb(193, 249, 253);
+    font-size: 18px;
+    color:darkgreen;
+}
+
+#hero-name::spelling-error, #heroine-name::spelling-error{
+    text-decoration: none;
+}
+
+#Hero_fullname, #Heroine_fullname{
+    width: 85%;
+    position: relative;
+    left: 5%;
+    color:darkblue;
+    background-color: blueviolet;
+    border-radius: 10px;
+    padding: 10px;
+    margin: 0px;
+    margin-top: 20px;
+    font-size: 23px;
+}
+
+#Hero-names-list, #Heroine-names-list{
+    width: 95%;
+    /* word-wrap: break-word; */
+    /* text-wrap: wrap; */
+    margin: 5px 10px;
+    padding: 5px 0;
+    font-size: 20px;
+    color: rgb(98, 0, 196);
+    background-color: rgb(182, 113, 247);
+    border-radius: 1rem;
+}
+
+#Movie{
+    background-color: rgb(107, 7, 202);
+    width: 50%;
+    position: relative;
+    top: 20px;
+    left: 23%;
+    padding: 15px;
+    margin-bottom: 40px;
+    border-radius: 15px;
+
+    display: grid;
+    grid-template-columns: 30% 50% 20%;
+}
+
+@media screen and (max-width: 630px) {
+    #Movie{
+        display: block;
+        width: 90%;
+        position: relative;
+        left: 1%;
+
+        display: flex;
+        flex-grow: 1;
+    }
+
+    .Movie_input{
+        flex-grow: 1;
+    }
+    #movie-name{
+        width: 30%;
+    }
+}
+
+.Movie_input{
+    height: 30px;
+    font-size: 20px;
+    border-radius: 10px;
+    margin: 3px;
+}
+
+#movie_label{
+    padding-top: 2px;
+    /* font-size: 4vh; */
+    color:rgb(22, 229, 115);
+    text-shadow: 1px 1px 2px rgb(4, 196, 255);
+    /* width: 10%; */
+
+    font-size: x-large;
+}
+
+.movie_btn{
+    height: 35px;
+    border-radius: 15px;
+    margin-left: 15px;
+    color: darkgreen;
+    background-color: chartreuse;
+    cursor: pointer;
+}
+
+.movie_btn:active{
+    color: lightgreen;
+    background-color: darkgreen;
+}
+
+#movie-name{
+    color:brown;
+    background-color:beige;
+    border: 3px solid rgb(125, 106, 0);
+    /* width: 30%; */
+}
+
+.js-display-bg-color{
+    display: grid;
+    grid-template-columns: 60% 2% 38%;
+    column-gap: 5px;
+
+    color: darkblue;
+    background-color:aqua;
+    width: 80%;
+    position: relative;
+    left: 10%;
+    border-radius: 8px;
+    padding: 10px 0;
+    /* margin-top: 10px; */
+
+    font-size: 2.5vi;
+}
+
+.js-actors-name-html-change{
+    /* display: block; */
+
+    display: grid;
+    grid-template-columns: 30% 2% 68%;
+
+    color: darkblue;
+    background-color:aqua;
+    width: 80%;
+    position: relative;
+    left: 10%;
+    border-radius: 8px;
+    padding: 10px 0;
+    margin-top: 10px;
+}
+
+.play-display-name-container{
+    width: 70%;
+    position: relative;
+    left: 15%;
+    border-radius: 10px;
+    background-color: brown;
+    padding: 1% 0;
+
+    font-size: 1.2vi;
+}
+
+.js-drawing{
+    width: 10%;
+    position: relative;
+    left: 41%;
+    background-color: aquamarine;
+    padding: 2%;
+    margin: 2%;
+    border-radius: 10px;
+
+    font-size: 3.5vi;
+}
+
+.js-draw-Movie{
+    border-radius: 19%;
+    border-bottom: 1vi solid darkgreen;
+}
+
+#draw-Movie, #draw-Hero, #draw-Heroine{
+    width: 100%;
+    margin: 0;
+}
+
+.js-draw-Hero{
+    padding: 20% 0;
+    border-right: 0.9vi solid darkgreen;
+}
+
+.js-draw-Heroine{
+    padding: 20% 0;
+    border-left: 0.9vi solid darkgreen;
+}
+
+#draw-actor{
+    display: grid;
+    grid-template-columns: 45% 45%;
+}
+
+.delete-btn-arrange{
+    display: grid;
+    grid-template-columns: 80% 20%;
+    column-gap:  5px;
+    text-align: center;
+    justify-content: center;
+    align-items: center;
+}
+
+.delete-button{
+    height: 70%;
+    width: 90%;
+    background-color: lightcoral;
+    color: darkred;
+    border-radius: 10px;
+    cursor: pointer;
+}
+
+.delete-button:active{
+    background-color: rgb(255, 220, 173);
+}
+
+#play-btn{
+    justify-self: center;
+}
+
+#lets-play-btn{
+    display: grid;
+    grid-template-columns: 20% 60% 20%;
+    background-color: burlywood;
+    color: brown;
+    height: 50px;
+    width: 170px;
+    border-radius: 10px;
+    font-size: 20px;
+    align-items: center;
+    cursor: pointer;
+    margin-top: 50px;
+
+    position: relative;
+    z-index: 0;
+    border: 3px solid darkred;
+}
+
+#lets-play-btn::after{
+    content: '';
+    height: 100%;
+    width: 0px;
+    background: linear-gradient(to right,rgb(198, 255, 55),rgb(41, 224, 41));
+    border-radius: 8px;
+    position: absolute;
+    left: 0;
+    top: 0;
+    z-index: -1;
+    transition: 250ms ease-in-out;
+}
+
+#lets-play-btn:hover::after{
+    width: 100%;   
+}
+
+#lets-play-btn:hover{
+    color: darkgreen;
+    border: 4px solid rgb(0, 0, 92);
+}
+
+
+@media screen and (max-width: 700px) {
+    .play-display-name-container{
+        width: 90%;
+        position: relative;
+        left: 5%;
+    }
+
+    .js-display-bg-color{
+        width: 90%;
+        position: relative;
+        left: 5%;
+        font-size: 3.5vi;
+    }
+
+    #play-game-container{
+        width: 80%;
+    }
+
+    /* .Play-Guessing{
+        font-size: 2.9vi;
+        height: 3vi;
+    } */
+
+    /* #Paly-guess-movie-name, #Play-guess-hero-name, #Play-guess-heroine-name{
+        height: 3vi;
+    } */
+
+    .play-showing-Right{
+        width: 90%;
+    }
+
+    #guess-movie, #guess-hero, #guess-heroine {
+        font-size: 3vi;
+    }
+}
+
+/* playing game  */
+
+/* .Play-Guessing{
+    font-size: 25px; // coment already
+} */
+
+.Play-guessing-container{
+    padding: 2%;
+    display: grid;
+    grid-template-columns: 39% 1% 40% 20%;
+    column-gap: 10px;
+    justify-content: center;
+    align-items: center;
+    font-size: 1.8vi;
+}
+
+#Paly-guess-movie-name, #Play-guess-hero-name, #Play-guess-heroine-name{
+    background-color: bisque;
+    color: brown;
+    border-radius: 7px;
+    border: 3px solid saddlebrown;
+    /* font-size: 1.8vi; */
+    padding: 8px 0 8px 8px;
+    width: 90%;
+    justify-self: center;
+}
+
+.Play-guess-lable{
+    text-align: left;
+}
+
+.play-check-btn{
+    background: linear-gradient(to right, rgb(254, 250, 2), rgb(236, 174, 4));
+    background-color: rgb(93, 255, 118);
+    color: rgb(94, 61, 0);
+    border-radius: 10px;
+    height: 100%;
+    width: 90%;
+    margin-left: 10px;
+    cursor: pointer;
+    position: relative;
+    z-index: 0;
+    border: none;
+
+    font-size: 12px;
+    font-weight: 700;
+}
+
+.play-check-btn::after{
+    content: '';
+    height: 100%;
+    width: 0px;
+    background: linear-gradient(to right, rgb(224, 86, 73), rgb(24, 68, 226));
+    border-radius: 10px;
+    position: absolute;
+    left: 0;
+    top: 0;
+    z-index: -1;
+    transition: 250ms ease-in-out;
+}
+
+.play-check-btn:hover::after{
+    width: 100%;
+}
+
+.play-check-btn:hover{
+    color: azure;
+}
+
+.play-showing-Right{
+    background: linear-gradient(to right, rgb(146, 239, 53),lightgreen, rgb(146, 239, 53));
+    min-width: 70%;
+    justify-self: center;
+    padding: 10px 0;
+    margin: 50px 0;
+    border-radius: 30px;
+    border: 4px dashed green;
+    color: darkgreen;
+
+    font-size: 1.1vi;
+}
+
+#guess-movie, #guess-hero, #guess-heroine {
+    text-transform: capitalize;
+    display: grid;
+    grid-template-columns: 30% 1% 69%;
+    column-gap: 7px;
+    padding: 0 30px;
+}
+
+.Right_Movie_lable, .Right_Hero_lable, .Right_Heroine_lable {
+    text-align: start;
+    /* min-width: 700px; */
+}
+
+.Right_Movie-1, .Right_Hero-1, .Right_Heroine-1{
+    text-align: left;
+    padding-left: 5px;
+}
+
+.visibility-hidden{
+    visibility: hidden;
+}
+
+.Display_Movie-1, .Display_Hero-1, .Display_Heroine-1{
+    text-align: left;
+    padding-left: 5px;
+}
+
+#result{
+    font-size: 2.5vi;
+    margin: 50px;
+    padding: 15px 30px;
+    justify-self: center;
+    border-radius: 20px;
+    /* background-color:lightpink; */
+    background: linear-gradient(to right, rgb(125, 228, 125), yellow, rgb(251, 144, 144), rgb(255, 205, 113), rgb(190, 120, 255));
+    color: rgb(92, 67, 0);
+    text-shadow: 1px 1px 2px rgb(58, 4, 255);
+
+    /* background-image: conic-gradient(from var(--angle),rgb(248, 248, 124),rgb(255, 224, 68),rgb(250, 205, 122),rgb(255, 224, 68),rgb(255, 177, 68),rgb(250, 205, 122),rgb(255, 224, 68),rgb(248, 248, 124));
+    animation: 3s spin linear infinite;    */
+}
+
+#win-result{
+    font-size: 2.5vi;
+    margin: 50px;
+    padding: 15px 30px;
+    justify-self: center;
+    border-radius: 20px;
+
+    background-image: conic-gradient(from var(--angle),rgb(153, 248, 177),rgb(199, 255, 230),rgb(217, 255, 184),rgb(153, 248, 177),rgb(199, 255, 230),rgb(217, 255, 184),rgb(153, 248, 177));
+    animation: 3s spin linear infinite;
+
+    color: rgb(135 90 0);
+    text-shadow: 3px 2px 4px rgb(160 119 2);
+}
+
+@media screen and (max-width: 500px) {
+    #result, #win-result {
+        width: 80%;
+        font-size: 12px;
+        /* height: 20px; */
+    }
+}
+
+footer{
+    margin-top: 40px;
+    padding: 30px;
+    font-size: 1.5vi;
+    color: rgb(3, 3, 184);
+    /* background-color: rgb(152, 255, 168); */
+}
+
+#credit{
+    justify-self: center;
+    background-color:rgb(135, 205, 222);
+    padding: 10px;
+    border-radius: 10px;
+}
+
+#random_movie{
+    font-size: 25px;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    padding: 10px;
+    border-radius: 10px;
+    background-color: aquamarine;
+    height: 70px;
+    width: 350px;
+    
+    background-image: conic-gradient(from var(--angle),rgb(153, 248, 177),rgb(199, 255, 230),rgb(217, 255, 184),rgb(153, 248, 177),rgb(199, 255, 230),rgb(217, 255, 184),rgb(153, 248, 177));
+    animation: 3s spin linear infinite;
+    border: 4px solid rgb(0, 74, 39);
+    color: rgb(13, 2, 163);
+
+    cursor: pointer;
+    position: relative;
+    z-index: 0;
+}
+
+#random_movie::after{
+    content: '';
+    height: 100%;
+    width: 0px;
+    background: linear-gradient(to top, rgb(73, 224, 88), rgb(202, 226, 24));
+    border-radius: 5px;
+    position: absolute;
+    left: 0;
+    top: 0;
+    z-index: -1;
+    transition: 250ms ease-in-out;
+}
+
+#random_movie:hover::after{
+    width: 100%;
+}
+
+#random_movie:hover{
+    color: rgb(95, 1, 74);
+    border: 5px solid green;
+}
+
+#random_movie:active{
+    border: 5px solid green;
+}
+
+
+
+
+label {
+      display: block;
+      margin-bottom: 6px;
+      font-weight: 600;
+      color: #444;
+    }
+
+    input[type="text"] {
+      /* width: 100%; */
+      /* padding: 12px; */
+      font-size: 16px;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+    }
+
+    .suggestions {
+      position: absolute;
+      /* top: 100%; */
+      left: 0;
+      right: 0;
+      background: rgb(199, 255, 230);;
+      border: 1px solid #ccc;
+      border-top: none;
+      z-index: 10;
+      max-height: 150px;
+      overflow-y: auto;
+      border-radius: 0 0 8px 8px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+    }
+
+    #actor-suggestions {
+        position: absolute;
+        /* top: 58%; */
+        right: 24%;
+        left: 44%;
+
+        z-index: 11;
+    }
+
+    #actress-suggestions {
+        position: absolute;
+        /* top: 85%; */
+        right: 24%;
+        left: 44%;
+    }
+
+    .suggestion-item {
+      padding: 10px;
+      cursor: pointer;
+    }
+
+    .suggestion-item:hover,
+    .suggestion-item.active {
+      background-color: #00ff15;
+      color: #698503;
+    }
+
+
+    @media (max-width: 700px) {
+      input[type="text"] {
+        font-size: 10px;
+        /* padding: 10px; */
+      }
+
+      label {
+        font-size: 2.9vi;
+      }
+    }
