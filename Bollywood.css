@@ -26,12 +26,14 @@ body{
     border-radius: 15px;
     background-color:rgb(0, 132, 255);
     position: relative;
+    width: 70%;
 }
 
 #grid_heros, #grid_heroines {
     width: 100%;
     display: grid;
-    grid-template-columns: 30% 40% 30%;
+    grid-template-columns: 25% 45% 25%;
+    column-gap: 2%;
 }
 
 @media screen and (max-width: 500px) {
@@ -56,7 +58,7 @@ body{
 #play-game-container{
     /* height: 10%; */
     justify-self: center;
-    width: 50%;
+    width: 70%;
     margin-top: 30px;
     padding: 20px;
     border-radius: 15px;
@@ -100,16 +102,14 @@ body{
 }
 
 .hero_inputs, .heroine_inputs{
-    font-size: 90%;
-    height: 30px;
-
+    font-size: 1.3rem;
     width: 100%;
 }
 
 #hero_label, #heroine_label{
     width: 100%;
     padding-top: 5px;
-    font-size: 20px;    /* in mobile font-size : 17px */
+    font-size: 30px;    /* in mobile font-size : 17px */
     color: rgb(16, 16, 121);
 }
 
@@ -123,7 +123,7 @@ body{
     background: linear-gradient(to right, rgb(254, 250, 2), rgb(236, 174, 4));
     color: rgb(94, 61, 0);
     border-radius: 10px;
-    height: 35px;
+    height: 100%;
     width: 100%;
     margin-left: 10px;
     cursor: pointer;
@@ -155,12 +155,21 @@ body{
     color: azure;
 }
 
+.actor_btn:active{
+    border-radius: 15px;
+    border: 5px solid rgb(232, 244, 255);
+}
+
 #hero-name, #heroine-name{
     border: 1px solid darkblue;
     border-radius: 6px;
     background-color: rgb(193, 249, 253);
     font-size: 18px;
     color:darkgreen;
+    height: 100%;
+    padding-left: 10px;
+    width: 90%;
+    font-size: 1.4rem;
 }
 
 #hero-name::spelling-error, #heroine-name::spelling-error{
@@ -177,16 +186,16 @@ body{
     padding: 10px;
     margin: 0px;
     margin-top: 20px;
-    font-size: 23px;
+    font-size: 2.3rem;
 }
 
 #Hero-names-list, #Heroine-names-list{
-    width: 95%;
+    width: 86%;
     /* word-wrap: break-word; */
     /* text-wrap: wrap; */
-    margin: 5px 10px;
+    margin: 5px 7%;
     padding: 5px 0;
-    font-size: 20px;
+    font-size: 2rem;
     color: rgb(98, 0, 196);
     background-color: rgb(182, 113, 247);
     border-radius: 1rem;
@@ -195,12 +204,14 @@ body{
 #Movie{
     background-color: rgb(107, 7, 202);
     width: 50%;
+    height: 100px;
     position: relative;
     top: 20px;
     left: 23%;
     padding: 15px;
     margin-bottom: 40px;
     border-radius: 15px;
+    align-items: center;
 
     display: grid;
     grid-template-columns: 30% 50% 20%;
@@ -239,21 +250,23 @@ body{
     text-shadow: 1px 1px 2px rgb(4, 196, 255);
     /* width: 10%; */
 
-    font-size: x-large;
+    font-size: 2rem;
 }
 
 .movie_btn{
-    height: 35px;
-    border-radius: 15px;
+    height: 60%;
+    border-radius: 35px;
     margin-left: 15px;
     color: darkgreen;
     background-color: chartreuse;
     cursor: pointer;
+    font-size: 1.5rem;
 }
 
 .movie_btn:active{
     color: lightgreen;
     background-color: darkgreen;
+    border: 5px solid rgb(199, 253, 200);
 }
 
 #movie-name{
@@ -261,6 +274,10 @@ body{
     background-color:beige;
     border: 3px solid rgb(125, 106, 0);
     /* width: 30%; */
+    height: 50%;
+    padding-left: 15px;
+    font-size: 1.5rem;
+    border-radius: 20px;
 }
 
 .js-display-bg-color{
@@ -375,10 +392,10 @@ body{
     grid-template-columns: 20% 60% 20%;
     background-color: burlywood;
     color: brown;
-    height: 50px;
-    width: 170px;
-    border-radius: 10px;
-    font-size: 20px;
+    height: 75px;
+    width: 200px;
+    border-radius: 20px;
+    font-size: 1.5rem;
     align-items: center;
     cursor: pointer;
     margin-top: 50px;
@@ -393,7 +410,7 @@ body{
     height: 100%;
     width: 0px;
     background: linear-gradient(to right,rgb(198, 255, 55),rgb(41, 224, 41));
-    border-radius: 8px;
+    border-radius: 15px;
     position: absolute;
     left: 0;
     top: 0;
@@ -428,30 +445,9 @@ body{
     #play-game-container{
         width: 80%;
     }
-
-    /* .Play-Guessing{
-        font-size: 2.9vi;
-        height: 3vi;
-    } */
-
-    /* #Paly-guess-movie-name, #Play-guess-hero-name, #Play-guess-heroine-name{
-        height: 3vi;
-    } */
-
-    .play-showing-Right{
-        width: 90%;
-    }
-
-    #guess-movie, #guess-hero, #guess-heroine {
-        font-size: 3vi;
-    }
 }
 
 /* playing game  */
-
-/* .Play-Guessing{
-    font-size: 25px; // coment already
-} */
 
 .Play-guessing-container{
     padding: 2%;
@@ -468,7 +464,7 @@ body{
     color: brown;
     border-radius: 7px;
     border: 3px solid saddlebrown;
-    /* font-size: 1.8vi; */
+    font-size: 1.5rem;
     padding: 8px 0 8px 8px;
     width: 90%;
     justify-self: center;
@@ -476,6 +472,8 @@ body{
 
 .Play-guess-lable{
     text-align: left;
+    font-size: 1.63rem;
+    color: rgb(6, 3, 107);
 }
 
 .play-check-btn{
@@ -491,8 +489,7 @@ body{
     z-index: 0;
     border: none;
 
-    font-size: 12px;
-    font-weight: 700;
+    font-size: 1.3rem
 }
 
 .play-check-btn::after{
@@ -516,25 +513,35 @@ body{
     color: azure;
 }
 
+.play-check-btn:active{
+    border-radius: 15px;
+    border: 5px solid rgb(232, 244, 255);
+}
+
 .play-showing-Right{
     background: linear-gradient(to right, rgb(146, 239, 53),lightgreen, rgb(146, 239, 53));
     min-width: 70%;
     justify-self: center;
     padding: 10px 0;
-    margin: 50px 0;
+    margin: 80px;
     border-radius: 30px;
     border: 4px dashed green;
     color: darkgreen;
 
-    font-size: 1.1vi;
+    font-size: 1rem;
+    min-height: 200px;
+    align-items: center;
 }
 
 #guess-movie, #guess-hero, #guess-heroine {
     text-transform: capitalize;
     display: grid;
-    grid-template-columns: 30% 1% 69%;
+    width: 100%;
+    grid-template-columns: 36% 1% 57%;
     column-gap: 7px;
     padding: 0 30px;
+
+    /* font-size: clamp(1.1rem, 4vw, 2rem); */
 }
 
 .Right_Movie_lable, .Right_Hero_lable, .Right_Heroine_lable {
@@ -557,7 +564,10 @@ body{
 }
 
 #result{
-    font-size: 2.5vi;
+    max-width: 75%;
+    height: 50px;
+    align-content: center;
+    font-size: 1.5rem;
     margin: 50px;
     padding: 15px 30px;
     justify-self: center;
@@ -572,7 +582,10 @@ body{
 }
 
 #win-result{
-    font-size: 2.5vi;
+    max-width: 100%;
+    max-height: 90px;
+    font-size: 2rem;
+    align-content: center;
     margin: 50px;
     padding: 15px 30px;
     justify-self: center;
@@ -594,28 +607,34 @@ body{
 }
 
 footer{
+    /* position: absolute;
+    bottom: 0;
+    width: 94%; */
     margin-top: 40px;
     padding: 30px;
-    font-size: 1.5vi;
+    /* font-size: 1.5vi; */
     color: rgb(3, 3, 184);
     /* background-color: rgb(152, 255, 168); */
 }
 
 #credit{
     justify-self: center;
+    align-content: center;
     background-color:rgb(135, 205, 222);
-    padding: 10px;
+    padding: 7px;
     border-radius: 10px;
+    font-size: 1.5rem;
+    height: 60px;
+    width: 50%;
 }
 
 #random_movie{
-    font-size: 25px;
+    font-size: 3vh;
     font-family: Verdana, Geneva, Tahoma, sans-serif;
-    padding: 10px;
-    border-radius: 10px;
+    padding: 20px;
+    border-radius: 25px;
     background-color: aquamarine;
-    height: 70px;
-    width: 350px;
+    width: 45vh;
     
     background-image: conic-gradient(from var(--angle),rgb(153, 248, 177),rgb(199, 255, 230),rgb(217, 255, 184),rgb(153, 248, 177),rgb(199, 255, 230),rgb(217, 255, 184),rgb(153, 248, 177));
     animation: 3s spin linear infinite;
@@ -632,7 +651,7 @@ footer{
     height: 100%;
     width: 0px;
     background: linear-gradient(to top, rgb(73, 224, 88), rgb(202, 226, 24));
-    border-radius: 5px;
+    border-radius: 20px;
     position: absolute;
     left: 0;
     top: 0;
@@ -650,7 +669,7 @@ footer{
 }
 
 #random_movie:active{
-    border: 5px solid green;
+    border: 7px solid green;
 }
 
 
@@ -677,7 +696,7 @@ label {
       left: 0;
       right: 0;
       background: rgb(199, 255, 230);;
-      border: 1px solid #ccc;
+      border: 1px solid saddlebrown;
       border-top: none;
       z-index: 10;
       max-height: 150px;
@@ -686,20 +705,24 @@ label {
       box-shadow: 0 4px 10px rgba(0,0,0,0.05);
     }
 
+    #movie-suggestions{
+        right: 4%;
+        left: 4%;
+
+        z-index: 12;
+    }
+
     #actor-suggestions {
-        position: absolute;
-        /* top: 58%; */
-        right: 24%;
-        left: 44%;
+        right: 4%;
+        left: 4%;
 
         z-index: 11;
     }
 
     #actress-suggestions {
-        position: absolute;
-        /* top: 85%; */
-        right: 24%;
-        left: 44%;
+        /* top: 94%; */
+        right: 4%;
+        left: 4%;
     }
 
     .suggestion-item {
@@ -724,3 +747,49 @@ label {
         font-size: 2.9vi;
       }
     }
+
+#play_again_btn{
+    display: grid;
+    grid-template-columns: 20% 60% 20%;
+    background-color: burlywood;
+    color: brown;
+    height: 75px;
+    width: 300px;
+    border-radius: 20px;
+    font-size: 1.5rem;
+    align-items: center;
+    cursor: pointer;
+    margin-top: 50px;
+    justify-self: center;
+    margin: 50px 20px;
+
+    position: relative;
+    z-index: 0;
+    border: 3px solid darkred;
+}
+
+#play_again_btn::after{
+    content: '';
+    height: 100%;
+    width: 0px;
+    background: linear-gradient(to right,rgb(198, 255, 55),rgb(41, 224, 41));
+    border-radius: 15px;
+    position: absolute;
+    left: 0;
+    top: 0;
+    z-index: -1;
+    transition: 250ms ease-in-out;
+}
+
+#play_again_btn:hover::after{
+    width: 100%;   
+}
+
+#play_again_btn:hover{
+    color: darkgreen;
+    border: 4px solid rgb(0, 0, 92);
+}
+
+#play_again_btn:active{
+    border: 6px solid rgb(0, 0, 92);
+}
