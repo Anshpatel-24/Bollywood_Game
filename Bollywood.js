@@ -923,7 +923,7 @@ function startGame(){
     }
 
     document.body.innerHTML += `<footer>
-        <button id="play_again_btn" class="visibility-hidden" onclick="window.location.href='Bollywood.html';">
+        <button id="play_again_btn" class="visibility-hidden" onclick="window.location.href='index.html';">
             <span class="material-symbols-outlined">
                 play_circle
             </span>
