@@ -11,52 +11,11 @@ let heroines = [];
 let inputMovie_Value;
 let movie_Name;
 
-// async function loadAndParseCSV() {
-//     const response = await fetch('movies.csv');
-//     const csvText = await response.text();
-
-//     // Use PapaParse to correctly parse quoted commas
-//     const results = Papa.parse(csvText, {
-//       header: true,
-//       skipEmptyLines: true
-//     });
-
-//     const data = results.data;
-//     const actorSet = new Set();
-//     const actressSet = new Set();
-
-//     data.forEach(row => {
-//       // Extract actors and actresses correctly
-//       const actorStr = row['actor'] || '';
-//       const actressStr = row['actress'] || '';
-
-//       actorStr.split(',').forEach(actor => {
-//         const trimmed = actor.trim();
-//         if (trimmed) actorSet.add(trimmed);
-//       });
-
-//       actressStr.split(',').forEach(actress => {
-//         const trimmed = actress.trim();
-//         if (trimmed) actressSet.add(trimmed);
-//       });
-//     });
-
-//     // Populate Actor datalist
-//     const actorList = document.getElementById('actorList');
-//     actorSet.forEach(actor => {
-//       const option = document.createElement('option');
-//       option.value = actor;
-//       actorList.appendChild(option);
-//     });
-
-//     // Populate Actress datalist
-//     const actressList = document.getElementById('actressList');
-//     actressSet.forEach(actress => {
-//       const option = document.createElement('option');
-//       option.value = actress;
-//       actressList.appendChild(option);
-//     });
-// }
+// Store all movie names for suggestions
+let allMovieNames = [];
+let enableMovieSuggestions = false;
+let correctHeroGuessed = false;
+let correctHeroineGuessed = false;
 
 
 function loadCSV() {
@@ -588,6 +547,8 @@ function playButton(){
             </span>
         </button>
     `;
+
+    loadAndParseCSV();
 }
 
 
@@ -698,6 +659,89 @@ async function loadAndParseCSV() {
     }
 
 
+// Fetch all movie names on load
+function fetchAllMovieNames() {
+    fetch('movies.csv')
+        .then(response => response.text())
+        .then(csvText => {
+            const result = Papa.parse(csvText, { header: true, skipEmptyLines: true });
+            allMovieNames = result.data.map(row => row.movie).filter(Boolean);
+        });
+}
+fetchAllMovieNames();
+
+// Setup movie suggestions (autocomplete)
+function setupMovieSuggestions() {
+    const input = document.getElementById('Paly-guess-movie-name');
+    if (!input) return;
+    let suggestionBox = document.getElementById('movie-suggestions');
+    if (!suggestionBox) {
+        suggestionBox = document.createElement('div');
+        suggestionBox.className = 'suggestions';
+        suggestionBox.id = 'movie-suggestions';
+        input.parentNode.appendChild(suggestionBox);
+    }
+    let currentFocus = -1;
+
+    input.addEventListener('input', () => {
+        if (!enableMovieSuggestions) return;
+        const value = input.value.toLowerCase();
+        suggestionBox.innerHTML = '';
+        currentFocus = -1;
+        if (!value) return;
+        const matches = allMovieNames.filter(name => name.toLowerCase().includes(value)).slice(0, 3);
+        matches.forEach((match, index) => {
+            const div = document.createElement('div');
+            div.className = 'suggestion-item';
+            div.textContent = match;
+            div.addEventListener('mousedown', (e) => {
+                e.preventDefault();
+                input.value = match;
+                suggestionBox.innerHTML = '';
+            });
+            suggestionBox.appendChild(div);
+        });
+    });
+
+    input.addEventListener('keydown', (e) => {
+        if (!enableMovieSuggestions) return;
+        const items = suggestionBox.querySelectorAll('.suggestion-item');
+        if (e.key === 'ArrowDown') {
+            currentFocus++;
+            if (currentFocus >= items.length) currentFocus = 0;
+            setActive(items);
+            if (items[currentFocus]) input.value = items[currentFocus].textContent;
+        } else if (e.key === 'ArrowUp') {
+            currentFocus--;
+            if (currentFocus < 0) currentFocus = items.length - 1;
+            setActive(items);
+            if (items[currentFocus]) input.value = items[currentFocus].textContent;
+        } else if (e.key === 'Enter') {
+            e.preventDefault();
+            if (currentFocus > -1 && items[currentFocus]) {
+                input.value = items[currentFocus].textContent;
+                suggestionBox.innerHTML = '';
+            }
+        }
+    });
+
+    function setActive(items) {
+        items.forEach((item, index) => {
+            item.classList.toggle('active', index === currentFocus);
+        });
+        if (items[currentFocus]) {
+            items[currentFocus].scrollIntoView({ block: 'nearest' });
+        }
+    }
+
+    input.addEventListener('blur', () => {
+        setTimeout(() => {
+            suggestionBox.innerHTML = '';
+            currentFocus = -1;
+        }, 100);
+    });
+}
+
 function startGame(){
 
     localStorage.setItem('Movie Name', inputMovie_Value);
@@ -719,11 +763,10 @@ function startGame(){
 
 
     document.body.innerHTML = `
-    
         <div class="js-drawing">${drawingElement.innerHTML}</div>
 
         <div class="play-display-name-container">
-            <h1 class = "js-display-bg-color" id="movie-name-1-letter">
+            <h1 class="js-display-bg-color" id="movie-name-1-letter">
                 <span>${lable_Movie_element.innerText}</span>
                 <span>${dot_Movie_element.innerText}</span>
                 <span class="Display_Movie-1">${Movie_1_element.innerText}</span>
@@ -742,12 +785,11 @@ function startGame(){
             </h1>
         </div>
 
-        <h1 id="win-result"></h1>
+        <h2 id="win-result"></h2>
 
-        <h2 id="result"></h2>
+        <h3 id="result"></h3>
 
         <div id="play-game-container"></div>
-        
     `;
 
     let win_result_element = document.querySelector('#win-result');
@@ -796,7 +838,10 @@ function startGame(){
         <div class="Play-guessing-container">
             <label class="Play-Guessing Play-guess-lable" for="Paly-guess-movie-name">Guess the Movie</label>
             <span class="Play-Guessing"> : </span>
-            <input list="moviesList" class="Play-Guessing" id="Paly-guess-movie-name" type="text" placeholder="Enter Movie Name">
+            <div style="position:relative;">
+                <input list="moviesList" class="Play-Guessing" id="Paly-guess-movie-name" type="text" placeholder="Enter Movie Name">
+                <!-- Suggestions will be appended here -->
+            </div>
             <button class="Play-Guessing play-check-btn" onclick="movieNameCheck();">Check</button>
         </div>
     `;
@@ -807,7 +852,7 @@ function startGame(){
                 <label class="Play-Guessing Play-guess-lable" for="Play-guess-hero-name">Guess the Hero</label>
                 <span class="Play-Guessing"> : </span>
 
-                <div>
+                <div style="position:relative;">
                     <input list="actorList" class="Play-Guessing" id="Play-guess-hero-name" type="text" placeholder="Enter Hero Name">
 
                     <div class="suggestions" id="actor-suggestions"></div>
@@ -827,7 +872,7 @@ function startGame(){
                 <label class="Play-Guessing Play-guess-lable" for="Play-guess-heroine-name">Guess the Heroine</label>
                 <span class="Play-Guessing"> : </span>
 
-                <div>
+                <div style="position:relative;">
                     <input list="actressList" class="Play-Guessing" id="Play-guess-heroine-name" type="text" placeholder="Enter Heroine Name">
 
                     <div class="suggestions" id="actress-suggestions"></div>
@@ -840,15 +885,15 @@ function startGame(){
 
     loadAndParseCSV();
 
+    // Make the "play-showing-Right" section mobile responsive
     document.body.innerHTML += `
-        
-        <div class="play-showing-Right">
+        <div class="play-showing-Right" >
             <h1 id="guess-movie">
                 <span class="Right_Movie_lable">Right Movie</span>
                 <span class="Right_Movie_dot"> : </span>
                 <span class="Right_Movie-1"></span>
             </h1>
-        <div>
+        </div>
     `;
 
     let result_element = document.querySelector('#result');
@@ -877,13 +922,28 @@ function startGame(){
         `;
     }
 
-    document.body.innerHTML += `<footer><div id="credit">Game Created By : Ansh Patel 😇</div></footer>`;
+    document.body.innerHTML += `<footer>
+        <button id="play_again_btn" class="visibility-hidden" onclick="window.location.href='Bollywood.html';">
+            <span class="material-symbols-outlined">
+                play_circle
+            </span>
+
+            <span>Play Again</span>
+
+            <span class="material-symbols-outlined">
+                sports_esports
+            </span>
+        </button>
+        <div id="credit">Game Created By : Ansh Patel 😇</div>
+    </footer>`;
 }
 
 // let showResult = document.querySelector('#result');
 // showResult = '';
 
 function movieNameCheck(){
+
+    let play_again_btn = document.querySelector('#play_again_btn');
 
     let result_element = document.querySelector('#result');
     result_element.classList.remove('visibility-hidden');
@@ -939,8 +999,8 @@ function movieNameCheck(){
                 }
             }
 
-            // document.body.remove(footerElement)
-            // document.body.innerHTML += `<a href="Bollywood.html">hi</a>`;
+            play_again_btn.classList.remove('visibility-hidden');
+            
         }else{
             showResult.innerText = `❌ Sorry, Guess another Movie. 😅`;
         }
@@ -961,10 +1021,8 @@ function HeroNameCheck(){
     let showResult = document.querySelector('#result');
 
     if(userHero.value !== ''){
-        let guessHero = userHero.value.toUpperCase().replaceAll(' ','');
-
+        let guessHero = userHero.value.toUpperCase().replaceAll(' ','').trim();
         let rightHeros = document.querySelector('.Right_Hero-1');
-
         let rightHeroFlag = false;
         for(let i = 0; i < heros.length; i++){
             if(guessHero === String(heros[i]).toUpperCase().replaceAll(' ','')){
@@ -982,6 +1040,14 @@ function HeroNameCheck(){
                 }
                 rightHeroFlag = true;
                 break;
+            }
+        }
+
+        if(rightHeroFlag){
+            correctHeroGuessed = true;
+            if(correctHeroGuessed && correctHeroineGuessed) {
+                enableMovieSuggestions = true;
+                setupMovieSuggestions();
             }
         }
 
@@ -1005,10 +1071,8 @@ function heroineNameCheck(){
     let showResult = document.querySelector('#result');
 
     if(userHeroine.value !== ''){
-        let guessHeroine = userHeroine.value.toUpperCase().replaceAll(' ','');
-
+        let guessHeroine = userHeroine.value.toUpperCase().replaceAll(' ','').trim();
         let rightHeroines = document.querySelector('.Right_Heroine-1');
-
         let rightHeroineFlag = false;
         for(let i = 0; i < heroines.length; i++){
             if(guessHeroine === String(heroines[i]).toUpperCase().replaceAll(' ','')){
@@ -1025,6 +1089,14 @@ function heroineNameCheck(){
                 }
                 rightHeroineFlag = true;
                 break;
+            }
+        }
+
+        if(rightHeroineFlag){
+            correctHeroineGuessed = true;
+            if(correctHeroGuessed && correctHeroineGuessed) {
+                enableMovieSuggestions = true;
+                setupMovieSuggestions();
             }
         }
 
