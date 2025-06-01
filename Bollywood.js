@@ -977,7 +977,7 @@ function startGame(){
     }
 
     document.body.innerHTML += `<footer>
-        <button id="play_again_btn" class="visibility-hidden" onclick="window.location.href='Bollywood.html';">
+        <button id="play_again_btn" class="visibility-hidden" onclick="window.location.href='index.html';">
             <span class="material-symbols-outlined">
                 play_circle
             </span>
@@ -993,6 +993,8 @@ function startGame(){
 
     // Add hint logic (button hidden by default)
     document.getElementById('show-hint-btn').onclick = function() {
+        hintButtonShown = true;
+
         document.getElementById('hint-content').style.display = 'block';
         // document.getElementById('hint-summary').innerText = movieHint.summary || 'No summary available.';
         document.getElementById('hint-year').innerText = movieHint.year || 'Unknown';
@@ -1184,13 +1186,13 @@ function showHintButtonIfNeeded(){
     const hintButton = document.getElementById('show-hint-btn');
     let summaryHint = document.getElementById('summary');
 
-    if (failedGuessCount >= 3 && !hintButtonShown) {
+    if (failedGuessCount >= 10 && !hintButtonShown) {
         hintButton.style.display = 'block';
-        hintButtonShown = true;
-    } else if (failedGuessCount >= 5 && !summaryHintShown) {
+        // hintButtonShown = true;
+    } else if (failedGuessCount/2 >= 7 && !summaryHintShown && hintButtonShown) {
         hintButton.style.display = 'block';
-        summaryHint.style.display = 'grid';
-        hintButton.innerText = '💡Show Movie Summary Hint 🔍';
+        summaryHint.style.display = 'flex';
+        hintButton.innerText = '💡Show Movie Hint 🔍';
         hintButton.onclick = function() {
             document.getElementById('hint-content').style.display = 'block';
             document.getElementById('hint-summary').innerText = movieHint.summary || 'No summary available.';
