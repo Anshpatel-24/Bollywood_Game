@@ -17,6 +17,15 @@ let enableMovieSuggestions = false;
 let correctHeroGuessed = false;
 let correctHeroineGuessed = false;
 
+let movieHint = { summary: '', year: '', genre: '' }; // Store hint info
+
+// Track failed attempts
+let failedGuessCount = 0;
+let hintButtonShown = false;
+
+let summaryHintShown = false;
+
+let suggestion_flag = false;
 
 function loadCSV() {
     heros = [];
@@ -31,12 +40,18 @@ function loadCSV() {
             // Check if row.actor is not undefined before splitting
             actor: row.actor?.split(',').map(x => x.trim()) || [],
             // Check if row.actress is not undefined before splitting
-            actress: row.actress?.split(',').map(x => x.trim()) || []
+            actress: row.actress?.split(',').map(x => x.trim()) || [],
+            summary: row.hint || '',
+            year: row.year || '',
+            genre: row.genre || ''
         }));
 
         const random = entries[Math.floor(Math.random() * entries.length)];
 
         inputMovie_Value = random.movie;
+        movieHint.summary = random.summary;
+        movieHint.year = random.year;
+        movieHint.genre = random.genre;
 
         for(let i = 0; i < random.actor.length; i++){
             heros.push(random.actor[i]);
@@ -62,7 +77,6 @@ function loadCSV() {
         movie_Name = inputMovie_Value.toUpperCase().replaceAll(' ','');
 
         
-
         console.log(inputMovie_Value);
         let movieName_1_letter = inputMovie_Value[0].toUpperCase();
         console.log(movieName_1_letter);
@@ -193,7 +207,13 @@ function movieName(){
                 <div id="Heros">
                     <div id="grid_heros">
                         <label class="hero_inputs" id="hero_label" for="hero-name">Hero : </label>
-                        <input class="hero_inputs" id="hero-name" type="text" placeholder="Enter Hero Name">
+
+                        <div style="position:relative;">
+                            <input list="actorList" class="hero_inputs" id="hero-name" type="text" placeholder="Enter Hero Name">
+
+                            <div class="suggestions" id="actor-suggestions"></div>
+                        </div>
+
                         <button class="hero_inputs actor_btn" onclick="
                             herosName();
                         ">ADD Hero</button>
@@ -205,7 +225,13 @@ function movieName(){
                 <div id="Heroine">
                     <div id="grid_heroines">
                         <label class="heroine_inputs" id="heroine_label" for="heroine-name">Heroine : </label>
-                        <input class="heroine_inputs" id="heroine-name" type="text" placeholder="Enter Heroine Name">
+
+                        <div style="position:relative;">
+                            <input list="actressList" class="heroine_inputs" id="heroine-name" type="text" placeholder="Enter Heroine Name">
+
+                            <div class="suggestions" id="actress-suggestions"></div>
+                        </div>
+
                         <button class="heroine_inputs actor_btn" onclick="
                             heroinesName();
                         ">ADD Heroine</button>
@@ -215,6 +241,8 @@ function movieName(){
                 </div>
             </div>
         `;
+
+        loadAndParseCSV();
 
         drawActorsElement.innerHTML = `
             <h5 id="draw-Hero"></h5>
@@ -252,7 +280,6 @@ function herosName(){
     // console.log(inputHeroName_Value);
     // console.log(heroName);
 
-    // let showWarning = document.querySelector('#warning');
     if(Hero === true){
         for(let i = 0; i < heros.length ; i++){
             if(heroName === heros[i].toUpperCase().replaceAll(' ','')){
@@ -364,7 +391,6 @@ function heroinesName(){
     
     // console.log(inputHeroineName_Value);
 
-    // let showWarning = document.querySelector('#warning');
     if(Heroine === true){
         for(let i = 0; i < heroines.length ; i++){
             if(heroineName === heroines[i].toUpperCase().replaceAll(' ','')){
@@ -507,8 +533,6 @@ function resetHeroineHTML(){
 function playButton(){
     let play = document.querySelector('#play-btn');
 
-    // <a href="Play Bollywood Game.html"></a>
-
     play.innerHTML = `
         <button id="lets-play-btn" onclick="
 
@@ -548,6 +572,7 @@ function playButton(){
         </button>
     `;
 
+    suggestion_flag = true;
     loadAndParseCSV();
 }
 
@@ -580,8 +605,13 @@ async function loadAndParseCSV() {
         });
       });
 
-      setupSuggestions('Play-guess-hero-name', 'actor-suggestions', Array.from(actorSet));
-      setupSuggestions('Play-guess-heroine-name', 'actress-suggestions', Array.from(actressSet));
+      if (suggestion_flag) {
+        setupSuggestions('Play-guess-hero-name', 'actor-suggestions', Array.from(actorSet));
+        setupSuggestions('Play-guess-heroine-name', 'actress-suggestions', Array.from(actressSet));
+      } else {
+        setupSuggestions('hero-name', 'actor-suggestions', Array.from(actorSet));
+        setupSuggestions('heroine-name', 'actress-suggestions', Array.from(actressSet));
+      }
     }
 
     function setupSuggestions(inputId, listId, dataList) {
@@ -785,6 +815,29 @@ function startGame(){
             </h1>
         </div>
 
+        <div id="hint-section" style="margin:20px 0;">
+            <button id="show-hint-btn">
+               🔍 Show Hint 🧠
+            </button>
+            <div id="hint-content">
+                <div class="hint_grid" style="display:none;" id="summary">
+                    <strong>💡 Movie Summary </strong>
+                    <div> : </div>
+                    <span id="hint-summary"></span>
+                </div>
+                <div class="hint_grid">
+                    <strong>🎭 Genre </strong>
+                    <div> : </div>
+                    <span id="hint-genre"></span>
+                </div>
+                <div class="hint_grid">
+                    <strong>📅 Release Year </strong>
+                    <div> : </div>
+                    <span id="hint-year"></span>
+                </div>
+            </div>
+        </div>
+
         <h2 id="win-result"></h2>
 
         <h3 id="result"></h3>
@@ -883,6 +936,7 @@ function startGame(){
         `;
     }
 
+    suggestion_flag = true;
     loadAndParseCSV();
 
     // Make the "play-showing-Right" section mobile responsive
@@ -923,7 +977,7 @@ function startGame(){
     }
 
     document.body.innerHTML += `<footer>
-        <button id="play_again_btn" class="visibility-hidden" onclick="window.location.href='index.html';">
+        <button id="play_again_btn" class="visibility-hidden" onclick="window.location.href='Bollywood.html';">
             <span class="material-symbols-outlined">
                 play_circle
             </span>
@@ -936,10 +990,22 @@ function startGame(){
         </button>
         <div id="credit">Game Created By : Ansh Patel 😇</div>
     </footer>`;
+
+    // Add hint logic (button hidden by default)
+    document.getElementById('show-hint-btn').onclick = function() {
+        document.getElementById('hint-content').style.display = 'block';
+        // document.getElementById('hint-summary').innerText = movieHint.summary || 'No summary available.';
+        document.getElementById('hint-year').innerText = movieHint.year || 'Unknown';
+        document.getElementById('hint-genre').innerText = movieHint.genre || 'Unknown';
+        this.style.display = 'none';
+    };
+
+    // Reset failed guess count and hint button state on new game
+    failedGuessCount = 0;
+    hintButtonShown = false;
+    summaryHintShown = false;
 }
 
-// let showResult = document.querySelector('#result');
-// showResult = '';
 
 function movieNameCheck(){
 
@@ -1003,6 +1069,8 @@ function movieNameCheck(){
             
         }else{
             showResult.innerText = `❌ Sorry, Guess another Movie. 😅`;
+            failedGuessCount++;
+            showHintButtonIfNeeded();
         }
     } else {
         showResult.innerText = `😐Please, Enter a Movie Name.🙄`;
@@ -1053,6 +1121,8 @@ function HeroNameCheck(){
 
         if(!rightHeroFlag){
             showResult.innerText = `❌ Sorry, Guess another Hero. 😅`;
+            failedGuessCount++;
+            showHintButtonIfNeeded();
         }
     } else {
         showResult.innerText = `😐Please, Enter a Hero Name.🙄`;
@@ -1102,8 +1172,30 @@ function heroineNameCheck(){
 
         if(!rightHeroineFlag){
             showResult.innerText = `❌ Sorry, Guess another Heroine. 😅`;
+            failedGuessCount++;
+            showHintButtonIfNeeded();
         }
     } else {
         showResult.innerText = `😐Please, Enter a Heroine Name.🙄`;
+    }
+}
+
+function showHintButtonIfNeeded(){
+    const hintButton = document.getElementById('show-hint-btn');
+    let summaryHint = document.getElementById('summary');
+
+    if (failedGuessCount >= 3 && !hintButtonShown) {
+        hintButton.style.display = 'block';
+        hintButtonShown = true;
+    } else if (failedGuessCount >= 5 && !summaryHintShown) {
+        hintButton.style.display = 'block';
+        summaryHint.style.display = 'grid';
+        hintButton.innerText = '💡Show Movie Summary Hint 🔍';
+        hintButton.onclick = function() {
+            document.getElementById('hint-content').style.display = 'block';
+            document.getElementById('hint-summary').innerText = movieHint.summary || 'No summary available.';
+            this.style.display = 'none';
+            summaryHintShown = true;
+        };
     }
 }
