@@ -263,6 +263,12 @@ body{
     font-size: 1.5rem;
 }
 
+.movie_btn:hover{
+    color: rgb(11, 65, 11);
+    background-color: lightgreen;
+    /* border: 3px solid rgb(199, 253, 200); */
+}
+
 .movie_btn:active{
     color: lightgreen;
     background-color: darkgreen;
@@ -425,6 +431,10 @@ body{
 #lets-play-btn:hover{
     color: darkgreen;
     border: 4px solid rgb(0, 0, 92);
+}
+
+#lets-play-btn:active{
+    border: 6px solid rgb(0, 0, 92);
 }
 
 
@@ -792,4 +802,80 @@ label {
 
 #play_again_btn:active{
     border: 6px solid rgb(0, 0, 92);
+}
+
+#hint-content{
+    max-height: 250px;
+    min-width: 55%;
+    font-size: 1.3rem;
+    justify-self: center;
+    align-items: center;
+
+    display:none;
+    margin-top:30px;
+    background:#fffde7;
+    border-radius:20px;
+    padding:12px 16px;
+    text-align:left;
+    color: #b87c1c;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+strong{
+    /* color: #3b3b12; */
+
+    margin: 5px 0;
+    background-color: #9b7f48;
+    border-radius: 10px;
+    padding: 12px 16px;
+    text-align: left;
+    color:rgb(242 212 129);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    /* min-width: 210px; */
+}
+
+#show-hint-btn{
+    background:#ffecb3;
+    color:#8d6e00;
+    min-height: 75px;
+    min-width: 300px;
+    border-radius: 20px;
+    font-size: 2rem;
+    align-items: center;
+    cursor: pointer;
+    margin-top: 50px;
+    justify-self: center;
+
+    position: relative;
+    z-index: 0;
+    border:4px solid #523d00;
+    font-weight:bold;
+
+    display:none;
+}
+
+#show-hint-btn:hover{
+    color: darkgreen;
+    background-color: #d1f54d;
+    border: 4px solid rgb(0, 0, 92);
+}
+
+#show-hint-btn:active{
+    background-color: #4de1f5;
+    border: 7px solid rgb(0, 0, 92);
+}
+
+.hint_grid{
+    display: grid;
+    grid-template-columns: 30% 1% 67%;
+    column-gap: 15px;
+}
+
+.hint_grid div{
+    color: #777700;
+    align-content: center;
+}
+
+#hint-summary, #hint-year, #hint-genre{
+    align-content: center;
 }
