@@ -217,7 +217,7 @@ body{
     grid-template-columns: 30% 50% 20%;
 }
 
-@media screen and (max-width: 630px) {
+@media screen and (max-width: 810px) {
     #Movie{
         display: block;
         width: 90%;
@@ -639,10 +639,10 @@ footer{
 }
 
 #random_movie{
-    font-size: 3vh;
+    font-size: 3.3vh;
     font-family: Verdana, Geneva, Tahoma, sans-serif;
-    padding: 20px;
-    border-radius: 25px;
+    padding: 2vh 1vh;
+    border-radius: 2vh;
     background-color: aquamarine;
     width: 45vh;
     
@@ -661,7 +661,7 @@ footer{
     height: 100%;
     width: 0px;
     background: linear-gradient(to top, rgb(73, 224, 88), rgb(202, 226, 24));
-    border-radius: 20px;
+    border-radius: 1.5vh;
     position: absolute;
     left: 0;
     top: 0;
@@ -807,6 +807,7 @@ label {
 #hint-content{
     max-height: 250px;
     min-width: 55%;
+    max-width: 75%;
     font-size: 1.3rem;
     justify-self: center;
     align-items: center;
@@ -831,7 +832,7 @@ strong{
     text-align: left;
     color:rgb(242 212 129);
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    /* min-width: 210px; */
+    min-width: 215px;
 }
 
 #show-hint-btn{
@@ -866,8 +867,13 @@ strong{
 }
 
 .hint_grid{
-    display: grid;
-    grid-template-columns: 30% 1% 67%;
+    /* display: grid;
+    grid-template-columns: 49% 1% 55%;
+    column-gap: 15px;
+    width: 90%; */
+
+    display: flex;
+    flex-direction: row;
     column-gap: 15px;
 }
 
@@ -878,4 +884,5 @@ strong{
 
 #hint-summary, #hint-year, #hint-genre{
     align-content: center;
+    flex-grow: 1;
 }
