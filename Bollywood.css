@@ -580,18 +580,47 @@ body{
     padding: 15px 30px;
     justify-self: center;
     border-radius: 20px;
-    /* background-color:lightpink; */
     background: linear-gradient(to right, rgb(125, 228, 125), yellow, rgb(251, 144, 144), rgb(255, 205, 113), rgb(190, 120, 255));
     color: rgb(92, 67, 0);
     text-shadow: 1px 1px 2px rgb(58, 4, 255);
 
-    /* background-image: conic-gradient(from var(--angle),rgb(248, 248, 124),rgb(255, 224, 68),rgb(250, 205, 122),rgb(255, 224, 68),rgb(255, 177, 68),rgb(250, 205, 122),rgb(255, 224, 68),rgb(248, 248, 124));
-    animation: 3s spin linear infinite;    */
+    /* Popup animation */
+    opacity: 0;
+    transform: scale(0.8);
+    transition: opacity 0.3s, transform 0.3s;
+    z-index: 1000;
+    box-shadow: 0 8px 32px rgba(0,0,0,0.18);
+    position: relative;
+    animation: none;
+}
+
+#result.show-popup {
+    opacity: 1;
+    transform: scale(1.05);
+    animation: popup-bounce 0.40s cubic-bezier(.68,-0.55,.27,1.55);
+}
+
+@keyframes popup-bounce {
+    0% {
+        opacity: 0;
+        transform: scale(0.7);
+    }
+    60% {
+        opacity: 1;
+        transform: scale(1.08);
+    }
+    80% {
+        transform: scale(0.98);
+    }
+    100% {
+        opacity: 1;
+        transform: scale(1.02);
+    }
 }
 
 #win-result{
-    max-width: 100%;
-    max-height: 90px;
+    max-width: 85%;
+    max-height: 110px;
     font-size: 2rem;
     align-content: center;
     margin: 50px;
@@ -604,6 +633,30 @@ body{
 
     color: rgb(135 90 0);
     text-shadow: 3px 2px 4px rgb(160 119 2);
+
+    overflow: hidden;
+    white-space: nowrap;
+    min-height: 2.5em;
+    /* Remove border here, add it in animation class */
+}
+
+.typewriter-animate {
+    display: inline-block;
+    /* border-right: 3px solid #b87c1c; */
+    width: 0;
+    animation: typewriter 2.2s steps(40, end) 1 normal both, blink-caret 0.7s step-end infinite;
+    white-space: nowrap;
+    overflow: hidden;
+}
+
+@keyframes typewriter {
+    from { width: 0 }
+    to { width: 100% }
+}
+
+@keyframes blink-caret {
+    0%, 100% { border-color: #b87c1c; }
+    50% { border-color: transparent; }
 }
 
 @media screen and (max-width: 500px) {
