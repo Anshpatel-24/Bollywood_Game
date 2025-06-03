@@ -996,6 +996,13 @@ function startGame(){
         hintButtonShown = true;
 
         document.getElementById('hint-content').style.display = 'block';
+
+        if(failedGuessCount >= 12) {
+            document.getElementById('summary').style.display = 'flex';
+            summaryHintShown = true;
+
+            document.getElementById('hint-summary').innerText = movieHint.summary || 'No summary available.';
+        }
         // document.getElementById('hint-summary').innerText = movieHint.summary || 'No summary available.';
         document.getElementById('hint-year').innerText = movieHint.year || 'Unknown';
         document.getElementById('hint-genre').innerText = movieHint.genre || 'Unknown';
@@ -1186,10 +1193,10 @@ function showHintButtonIfNeeded(){
     const hintButton = document.getElementById('show-hint-btn');
     let summaryHint = document.getElementById('summary');
 
-    if (failedGuessCount >= 10 && !hintButtonShown) {
+    if (failedGuessCount >= 9 && !hintButtonShown) {
         hintButton.style.display = 'block';
         // hintButtonShown = true;
-    } else if (failedGuessCount/2 >= 7 && !summaryHintShown && hintButtonShown) {
+    } else if (failedGuessCount >= 14 && !summaryHintShown && hintButtonShown) {
         hintButton.style.display = 'block';
         summaryHint.style.display = 'flex';
         hintButton.innerText = '💡Show Movie Hint 🔍';
