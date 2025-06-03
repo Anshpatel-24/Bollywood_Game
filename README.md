@@ -4,13 +4,13 @@
 
 ## Features
 
-- **Random Movie Generation:** Get a random Bollywood movie from a CSV database.
-- **Manual Movie Entry:** Enter your own movie to play with friends.
-- **Hero & Heroine Guessing:** Add and guess the main actors and actresses.
-- **Hints:** After several failed attempts, unlock hints such as genre, release year, and a summary.
-- **Autocomplete Suggestions:** Smart suggestions for movie, hero, and heroine names.
-- **Responsive Design:** Mobile-friendly and visually engaging UI.
-- **Animated Feedback:** Popup and typewriter animations for results and winning messages.
+- **Random Movie Generation :** Get a random Bollywood movie from a CSV database.
+- **Manual Movie Entry :** Enter your own movie to play with friends.
+- **Hero & Heroine Guessing :** Add and guess the main actors and actresses.
+- **Hints :** After several failed attempts, unlock hints such as genre, release year, and a summary.
+- **Autocomplete Suggestions :** Smart suggestions for movie, hero, and heroine names.
+- **Responsive Design :** Mobile-friendly and visually engaging UI.
+- **Animated Feedback :** Popup and typewriter animations for results and winning messages.
 
 ## How to Play
 
