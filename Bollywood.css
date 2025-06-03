@@ -244,8 +244,6 @@ body{
 }
 
 #movie_label{
-    padding-top: 2px;
-    /* font-size: 4vh; */
     color:rgb(22, 229, 115);
     text-shadow: 1px 1px 2px rgb(4, 196, 255);
     /* width: 10%; */
