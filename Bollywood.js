@@ -838,7 +838,10 @@ function startGame(){
             </div>
         </div>
 
-        <h2 id="win-result"></h2>
+        <h2 id="win-result">
+            <span id="win_line_1" class="typewriter-animation"></span><br>
+            <span id="win_line_2" class="typewriter-animation"></span>
+        </h2>
 
         <h3 id="result"></h3>
 
@@ -1017,9 +1020,7 @@ function startGame(){
 
 
 function movieNameCheck(){
-
     let play_again_btn = document.querySelector('#play_again_btn');
-
     let result_element = document.querySelector('#result');
     result_element.classList.remove('visibility-hidden');
 
@@ -1027,11 +1028,10 @@ function movieNameCheck(){
     let win_result_element = document.querySelector('#win-result');
 
     let userMovie = document.querySelector('#Paly-guess-movie-name');
-
     let showResult = document.querySelector('#result');
 
     if(userMovie.value !== ''){
-        let guessMovie = userMovie.value.toUpperCase().replaceAll(' ','');
+        let guessMovie = userMovie.value.toUpperCase().replaceAll(' ','').trim();
 
         let rightMovie = document.querySelector('.Right_Movie-1');
         let finalResult = document.querySelector('#win-result');
@@ -1042,13 +1042,18 @@ function movieNameCheck(){
         if(guessMovie === movie_Name){
             show_Right_Element.classList.remove('visibility-hidden');
             showResult.innerText = `🎉Congratulations !!🎊 You are Guessing Right Movie.👏`;
+            showResultPopup();
 
             if((rightMovie.innerText.toUpperCase().replaceAll(' ','')).match(guessMovie) === null){
                 rightMovie.innerText += ` ${inputMovie_Value} `;
             }
 
             win_result_element.classList.remove('visibility-hidden');
-            finalResult.innerText = `🥳 Huurrayyy...!!! 🏆Congratulations You Won the Game.🏆`;
+
+            let line1 = document.querySelector('#win_line_1');
+            let line2 = document.querySelector('#win_line_2');
+            showWinResultTypewriter(`🥳 Huurrayyy...!!! 🥳`, line1);
+            showWinResultTypewriter(`🏆Congratulations You Won the Game.🏆`, line2);
 
             if(rightHeros !== null){
                 rightHeros.innerText = '';
@@ -1078,11 +1083,13 @@ function movieNameCheck(){
             
         }else{
             showResult.innerText = `❌ Sorry, Guess another Movie. 😅`;
+            showResultPopup();
             failedGuessCount++;
             showHintButtonIfNeeded();
         }
     } else {
         showResult.innerText = `😐Please, Enter a Movie Name.🙄`;
+        showResultPopup();
     }
 }
 
@@ -1105,6 +1112,7 @@ function HeroNameCheck(){
             if(guessHero === String(heros[i]).toUpperCase().replaceAll(' ','')){
                 show_Right_Element.classList.remove('visibility-hidden');
                 showResult.innerText = '🎉Congratulations !!🎊 You are Guessing Right Hero.👏';
+                showResultPopup();
 
                 if((rightHeros.innerText).match(heros[i]) === null){
 
@@ -1130,11 +1138,13 @@ function HeroNameCheck(){
 
         if(!rightHeroFlag){
             showResult.innerText = `❌ Sorry, Guess another Hero. 😅`;
+            showResultPopup();
             failedGuessCount++;
             showHintButtonIfNeeded();
         }
     } else {
         showResult.innerText = `😐Please, Enter a Hero Name.🙄`;
+        showResultPopup();
     }
 }
 
@@ -1157,6 +1167,7 @@ function heroineNameCheck(){
             if(guessHeroine === String(heroines[i]).toUpperCase().replaceAll(' ','')){
                 show_Right_Element.classList.remove('visibility-hidden');
                 showResult.innerText = `🎉Congratulations !!🎊 You are Guessing Right Heroine.👏`;
+                showResultPopup();
 
                 if((rightHeroines.innerText).match(heroines[i]) === null){
 
@@ -1181,11 +1192,13 @@ function heroineNameCheck(){
 
         if(!rightHeroineFlag){
             showResult.innerText = `❌ Sorry, Guess another Heroine. 😅`;
+            showResultPopup();
             failedGuessCount++;
             showHintButtonIfNeeded();
         }
     } else {
         showResult.innerText = `😐Please, Enter a Heroine Name.🙄`;
+        showResultPopup();
     }
 }
 
@@ -1206,5 +1219,31 @@ function showHintButtonIfNeeded(){
             this.style.display = 'none';
             summaryHintShown = true;
         };
+    }
+}
+
+function showResultPopup() {
+    const resultEl = document.querySelector('#result');
+    if (resultEl) {
+        resultEl.classList.remove('show-popup');
+        // Force reflow for restart animation
+        void resultEl.offsetWidth;
+        resultEl.classList.add('show-popup');
+    }
+}
+
+function showWinResultTypewriter(text , line1) {
+    const winEl = line1;
+
+    // if (winEl.textContent.length === 0)  ---> use for only 1 time animate...
+    if (winEl) {
+        winEl.classList.remove('typewriter-animate');
+        winEl.innerHTML = ''; // Clear previous content
+
+        winEl.textContent = text;
+
+        // Force reflow to restart animation
+        void winEl.offsetWidth;
+        winEl.classList.add('typewriter-animate');
     }
 }
