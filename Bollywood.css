@@ -563,7 +563,8 @@ body{
 }
 
 .visibility-hidden{
-    visibility: hidden;
+    display: none;
+    /* visibility: hidden; */
 }
 
 .Display_Movie-1, .Display_Hero-1, .Display_Heroine-1{
