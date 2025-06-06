@@ -174,7 +174,8 @@ function movieName(){
     if(inputMovie_Value !== ''){
 
         let randomMovieBTN = document.querySelector("#random_movie");
-        randomMovieBTN.classList.add('visibility-hidden');
+        // randomMovieBTN.classList.add('visibility-hidden');
+        randomMovieBTN.style.display = 'none';
 
         footerElement.classList.remove('visibility-hidden');
     
@@ -1000,7 +1001,7 @@ function startGame(){
 
         document.getElementById('hint-content').style.display = 'block';
 
-        if(failedGuessCount >= 12) {
+        if(failedGuessCount >= 8) {
             document.getElementById('summary').style.display = 'flex';
             summaryHintShown = true;
 
@@ -1053,7 +1054,7 @@ function movieNameCheck(){
             let line1 = document.querySelector('#win_line_1');
             let line2 = document.querySelector('#win_line_2');
             showWinResultTypewriter(`🥳 Huurrayyy...!!! 🥳`, line1);
-            showWinResultTypewriter(`🏆Congratulations You Won the Game.🏆`, line2);
+            showWinResultTypewriter(`🏆 Congratulations You Won the Game. 🏆`, line2);
 
             if(rightHeros !== null){
                 rightHeros.innerText = '';
@@ -1206,10 +1207,10 @@ function showHintButtonIfNeeded(){
     const hintButton = document.getElementById('show-hint-btn');
     let summaryHint = document.getElementById('summary');
 
-    if (failedGuessCount >= 9 && !hintButtonShown) {
+    if (failedGuessCount >= 5 && !hintButtonShown) {
         hintButton.style.display = 'block';
         // hintButtonShown = true;
-    } else if (failedGuessCount >= 14 && !summaryHintShown && hintButtonShown) {
+    } else if (failedGuessCount >= 10 && !summaryHintShown && hintButtonShown) {
         hintButton.style.display = 'block';
         summaryHint.style.display = 'flex';
         hintButton.innerText = '💡Show Movie Hint 🔍';
