@@ -774,6 +774,12 @@ label {
         z-index: 12;
     }
 
+    #movie-name-suggestions{
+        /* top: 94%; */
+        right: 4%;
+        left: 4%;
+    }
+
     #actor-suggestions {
         right: 4%;
         left: 4%;
@@ -937,4 +943,51 @@ strong{
 #hint-summary, #hint-year, #hint-genre{
     align-content: center;
     flex-grow: 1;
+}
+
+#pass-movie-btn{
+    background-color: #ffea80;
+    color: #b71c1c;
+    min-height: 70px;
+    min-width: 300px;
+    border-radius: 20px;
+    font-size: 1.7rem;
+    align-items: center;
+    cursor: pointer;
+    margin: 15px 0 20px 0;
+    justify-self: center;
+
+    position: relative;
+    z-index: 0;
+    border:4px solid rgb(94, 61, 0);
+
+    padding-right: 20px;
+}
+
+#pass-movie-btn::after{
+    content: '';
+    height: 100%;
+    width: 0px;
+    background: linear-gradient(to top, rgb(73, 224, 88), rgb(202, 226, 24));
+    border-radius: 15px;
+    position: absolute;
+    left: 0;
+    top: 0;
+    z-index: -1;
+    transition: 250ms ease-in-out;
+}
+
+#pass-movie-btn:hover::after{
+    width: 100%;
+}
+
+#pass-movie-btn:hover{
+    color: darkgreen;
+    /* background-color: #d1f54d; */
+    border: 4px solid rgb(0, 0, 92);
+}
+
+#pass-movie-btn:active{
+    /* background-color: #4de1f5; */
+    border: 7px solid rgb(0, 0, 92);
 }
