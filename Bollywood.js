@@ -940,6 +940,15 @@ function startGame(){
         `;
     }
 
+    // Add Pass Movie button placeholder (hidden by default)
+    playGameContainer.innerHTML += `
+        <div id="pass-movie-btn-container" style="display:none; margin-top:16px; text-align:center;">
+            <button id="pass-movie-btn" >
+                ⏭️ Pass Movie
+            </button>
+        </div>
+    `;
+
     suggestion_flag = true;
     loadAndParseCSV();
 
@@ -1006,6 +1015,8 @@ function startGame(){
             summaryHintShown = true;
 
             document.getElementById('hint-summary').innerText = movieHint.summary || 'No summary available.';
+
+            showPassMovieButton();
         }
         // document.getElementById('hint-summary').innerText = movieHint.summary || 'No summary available.';
         document.getElementById('hint-year').innerText = movieHint.year || 'Unknown';
@@ -1219,7 +1230,51 @@ function showHintButtonIfNeeded(){
             document.getElementById('hint-summary').innerText = movieHint.summary || 'No summary available.';
             this.style.display = 'none';
             summaryHintShown = true;
+            // Show Pass Movie button when summary is shown
+            showPassMovieButton();
         };
+    }
+}
+
+// Add this function to handle Pass Movie button logic
+function showPassMovieButton() {
+    const passBtnContainer = document.getElementById('pass-movie-btn-container');
+    if (passBtnContainer) {
+        passBtnContainer.style.display = 'block';
+        const passBtn = document.getElementById('pass-movie-btn');
+        if (passBtn) {
+            passBtn.onclick = function() {
+                revealRightAnswers();
+                passBtn.disabled = true;
+                passBtn.innerText = "✔️ Answer Revealed";
+            };
+        }
+    }
+}
+
+// Add this function to reveal the right answers
+function revealRightAnswers() {
+    const show_Right_Element = document.querySelector('.play-showing-Right');
+    if (!show_Right_Element) return;
+
+    show_Right_Element.classList.remove('visibility-hidden');
+
+    // Movie
+    const rightMovie = show_Right_Element.querySelector('.Right_Movie-1');
+    if (rightMovie && rightMovie.innerText.trim() === '') {
+        rightMovie.innerText = ` ${inputMovie_Value} `;
+    }
+
+    // Hero
+    const rightHeros = show_Right_Element.querySelector('.Right_Hero-1');
+    if (rightHeros && rightHeros.innerText.trim() === '') {
+        rightHeros.innerText = heros.length ? ` ${heros.join(' , ')} ` : 'None';
+    }
+
+    // Heroine
+    const rightHeroines = show_Right_Element.querySelector('.Right_Heroine-1');
+    if (rightHeroines && rightHeroines.innerText.trim() === '') {
+        rightHeroines.innerText = heroines.length ? ` ${heroines.join(' , ')} ` : 'None';
     }
 }
 
