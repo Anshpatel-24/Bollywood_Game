@@ -1030,6 +1030,8 @@ function startGame(){
     summaryHintShown = false;
 }
 
+let revealMovieName = false;
+let userWin = false;
 
 function movieNameCheck(){
     let play_again_btn = document.querySelector('#play_again_btn');
@@ -1051,7 +1053,8 @@ function movieNameCheck(){
         let rightHeros = document.querySelector('.Right_Hero-1');
         let rightHeroines = document.querySelector('.Right_Heroine-1');
 
-        if(guessMovie === movie_Name){
+        if(guessMovie === movie_Name && !revealMovieName){
+            userWin = true;
             show_Right_Element.classList.remove('visibility-hidden');
             showResult.innerText = `🎉Congratulations !!🎊 You are Guessing Right Movie.👏`;
             showResultPopup();
@@ -1094,10 +1097,19 @@ function movieNameCheck(){
             play_again_btn.classList.remove('visibility-hidden');
             
         }else{
-            showResult.innerText = `❌ Sorry, Guess another Movie. 😅`;
-            showResultPopup();
-            failedGuessCount++;
-            showHintButtonIfNeeded();
+            if(!revealMovieName) {
+                showResult.innerText = `❌ Sorry, Guess another Movie. 😅`;
+                showResultPopup();
+                failedGuessCount++;
+                showHintButtonIfNeeded();
+            } else {
+                showResult.innerText = `❌ Sorry, You have already passed this movie. 😅`;
+                showResultPopup();
+
+                win_result_element.classList.remove('visibility-hidden');
+                let line1 = document.querySelector('#win_line_1');
+                showWinResultTypewriter(`👎🏻 Sorry You Lost the Game. 😅`, line1);
+            }
         }
     } else {
         showResult.innerText = `😐Please, Enter a Movie Name.🙄`;
@@ -1244,9 +1256,11 @@ function showPassMovieButton() {
         const passBtn = document.getElementById('pass-movie-btn');
         if (passBtn) {
             passBtn.onclick = function() {
-                revealRightAnswers();
-                passBtn.disabled = true;
-                passBtn.innerText = "✔️ Answer Revealed";
+                if(!userWin){
+                    revealRightAnswers();
+                    passBtn.disabled = true;
+                    passBtn.innerText = "✔️ Movie Revealed";
+                }
             };
         }
     }
@@ -1254,6 +1268,17 @@ function showPassMovieButton() {
 
 // Add this function to reveal the right answers
 function revealRightAnswers() {
+
+    revealMovieName = true;
+
+    let win_result_element = document.querySelector('#win-result');
+    win_result_element.classList.remove('visibility-hidden');
+    let line1 = document.querySelector('#win_line_1');
+    showWinResultTypewriter(`👎🏻 You Lost the Game. 😅`, line1);
+
+    let play_again_btn = document.querySelector('#play_again_btn');
+    play_again_btn.classList.remove('visibility-hidden');
+
     const show_Right_Element = document.querySelector('.play-showing-Right');
     if (!show_Right_Element) return;
 
