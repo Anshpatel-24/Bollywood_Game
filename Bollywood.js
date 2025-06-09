@@ -27,6 +27,39 @@ let summaryHintShown = false;
 
 let suggestion_flag = false;
 
+// --- Score System ---
+function getScore() {
+    return parseInt(localStorage.getItem('bolly_score') || '0', 10);
+}
+function setScore(val) {
+    localStorage.setItem('bolly_score', val);
+}
+function updateScoreDisplay() {
+    let scoreBar = document.getElementById('score-bar');
+    if (!scoreBar) {
+        scoreBar = document.createElement('div');
+        scoreBar.id = 'score-bar';
+        document.body.insertAdjacentElement('afterbegin', scoreBar);
+    }
+    scoreBar.innerHTML = `
+        <span>Your Score : <b id="score-value">${getScore()}</b></span>
+        <button id="reset-score-btn">Reset Score</button>
+    `;
+    document.getElementById('reset-score-btn').onclick = function() {
+        setScore(0);
+        updateScoreDisplay();
+    };
+}
+// Call this at the start of the game
+updateScoreDisplay();
+// --- End Score System ---
+
+// Track already guessed correct heroes/heroines for this round
+let guessedHeroes = new Set();
+let guessedHeroines = new Set();
+// Track already guessed correct movie for this round
+let guessedMovie = false;
+
 function loadCSV() {
     heros = [];
     heroines = [];
@@ -893,29 +926,29 @@ function startGame(){
 
     playGameContainer.innerHTML = `
         <div class="Play-guessing-container">
-            <label class="Play-Guessing Play-guess-lable" for="Paly-guess-movie-name">Guess the Movie</label>
+            <label class="Play-guess-lable" for="Paly-guess-movie-name">Guess the Movie</label>
             <span class="Play-Guessing"> : </span>
             <div style="position:relative;">
-                <input list="moviesList" class="Play-Guessing" id="Paly-guess-movie-name" type="text" placeholder="Enter Movie Name">
+                <input list="moviesList" id="Paly-guess-movie-name" type="text" placeholder="Enter Movie Name">
                 <!-- Suggestions will be appended here -->
             </div>
-            <button class="Play-Guessing play-check-btn" onclick="movieNameCheck();">Check</button>
+            <button class="play-check-btn" onclick="movieNameCheck();">Check</button>
         </div>
     `;
 
     if(!displayHero.innerText.match('None')){
         playGameContainer.innerHTML += `
             <div class="Play-guessing-container">
-                <label class="Play-Guessing Play-guess-lable" for="Play-guess-hero-name">Guess the Hero</label>
+                <label class="Play-guess-lable" for="Play-guess-hero-name">Guess the Hero</label>
                 <span class="Play-Guessing"> : </span>
 
                 <div style="position:relative;">
-                    <input list="actorList" class="Play-Guessing" id="Play-guess-hero-name" type="text" placeholder="Enter Hero Name">
+                    <input list="actorList" id="Play-guess-hero-name" type="text" placeholder="Enter Hero Name">
 
                     <div class="suggestions" id="actor-suggestions"></div>
                 </div>
 
-                <button class="Play-Guessing play-check-btn" onclick="HeroNameCheck();">Check</button>
+                <button class="play-check-btn" onclick="HeroNameCheck();">Check</button>
                 
             </div>
 
@@ -926,16 +959,16 @@ function startGame(){
     if(!displayHeroine.innerText.match('None')){
         playGameContainer.innerHTML += `
             <div class="Play-guessing-container">
-                <label class="Play-Guessing Play-guess-lable" for="Play-guess-heroine-name">Guess the Heroine</label>
+                <label class="Play-guess-lable" for="Play-guess-heroine-name">Guess the Heroine</label>
                 <span class="Play-Guessing"> : </span>
 
                 <div style="position:relative;">
-                    <input list="actressList" class="Play-Guessing" id="Play-guess-heroine-name" type="text" placeholder="Enter Heroine Name">
+                    <input list="actressList" id="Play-guess-heroine-name" type="text" placeholder="Enter Heroine Name">
 
                     <div class="suggestions" id="actress-suggestions"></div>
                 </div>
 
-                <button class="Play-Guessing play-check-btn" onclick="heroineNameCheck();">Check</button>
+                <button class="play-check-btn" onclick="heroineNameCheck();">Check</button>
             </div>
         `;
     }
@@ -1056,6 +1089,12 @@ function movieNameCheck(){
         if(guessMovie === movie_Name && !revealMovieName){
             userWin = true;
             show_Right_Element.classList.remove('visibility-hidden');
+            // Only add score if not already guessed this movie
+            if (!guessedMovie) {
+                setScore(getScore() + 10);
+                updateScoreDisplay();
+                guessedMovie = true;
+            }
             showResult.innerText = `🎉Congratulations !!🎊 You are Guessing Right Movie.👏`;
             showResultPopup();
 
@@ -1102,6 +1141,9 @@ function movieNameCheck(){
                 showResultPopup();
                 failedGuessCount++;
                 showHintButtonIfNeeded();
+                // Score: wrong movie -2
+                setScore(getScore() - 2);
+                updateScoreDisplay();
             } else {
                 showResult.innerText = `❌ Sorry, You have already passed this movie. 😅`;
                 showResultPopup();
@@ -1133,7 +1175,8 @@ function HeroNameCheck(){
         let rightHeros = document.querySelector('.Right_Hero-1');
         let rightHeroFlag = false;
         for(let i = 0; i < heros.length; i++){
-            if(guessHero === String(heros[i]).toUpperCase().replaceAll(' ','')){
+            let heroKey = String(heros[i]).toUpperCase().replaceAll(' ','')
+            if(guessHero === heroKey){
                 show_Right_Element.classList.remove('visibility-hidden');
                 showResult.innerText = '🎉Congratulations !!🎊 You are Guessing Right Hero.👏';
                 showResultPopup();
@@ -1147,6 +1190,12 @@ function HeroNameCheck(){
                     }
 
                 }
+                // Only add score if not already guessed
+                if (!guessedHeroes.has(heroKey)) {
+                    setScore(getScore() + 5);
+                    updateScoreDisplay();
+                    guessedHeroes.add(heroKey);
+                }
                 rightHeroFlag = true;
                 break;
             }
@@ -1154,6 +1203,7 @@ function HeroNameCheck(){
 
         if(rightHeroFlag){
             correctHeroGuessed = true;
+
             if(correctHeroGuessed && correctHeroineGuessed) {
                 enableMovieSuggestions = true;
                 setupMovieSuggestions();
@@ -1165,6 +1215,9 @@ function HeroNameCheck(){
             showResultPopup();
             failedGuessCount++;
             showHintButtonIfNeeded();
+            // Score: wrong hero -1
+            setScore(getScore() - 1);
+            updateScoreDisplay();
         }
     } else {
         showResult.innerText = `😐Please, Enter a Hero Name.🙄`;
@@ -1188,7 +1241,8 @@ function heroineNameCheck(){
         let rightHeroines = document.querySelector('.Right_Heroine-1');
         let rightHeroineFlag = false;
         for(let i = 0; i < heroines.length; i++){
-            if(guessHeroine === String(heroines[i]).toUpperCase().replaceAll(' ','')){
+            let heroineKey = String(heroines[i]).toUpperCase().replaceAll(' ','')
+            if(guessHeroine === heroineKey){
                 show_Right_Element.classList.remove('visibility-hidden');
                 showResult.innerText = `🎉Congratulations !!🎊 You are Guessing Right Heroine.👏`;
                 showResultPopup();
@@ -1201,6 +1255,12 @@ function heroineNameCheck(){
                         rightHeroines.innerText += ` , ${heroines[i]} `;
                     }
                 }
+                // Only add score if not already guessed
+                if (!guessedHeroines.has(heroineKey)) {
+                    setScore(getScore() + 5);
+                    updateScoreDisplay();
+                    guessedHeroines.add(heroineKey);
+                }
                 rightHeroineFlag = true;
                 break;
             }
@@ -1208,6 +1268,7 @@ function heroineNameCheck(){
 
         if(rightHeroineFlag){
             correctHeroineGuessed = true;
+
             if(correctHeroGuessed && correctHeroineGuessed) {
                 enableMovieSuggestions = true;
                 setupMovieSuggestions();
@@ -1219,6 +1280,9 @@ function heroineNameCheck(){
             showResultPopup();
             failedGuessCount++;
             showHintButtonIfNeeded();
+            // Score: wrong heroine -1
+            setScore(getScore() - 1);
+            updateScoreDisplay();
         }
     } else {
         showResult.innerText = `😐Please, Enter a Heroine Name.🙄`;
@@ -1257,6 +1321,9 @@ function showPassMovieButton() {
         if (passBtn) {
             passBtn.onclick = function() {
                 if(!userWin){
+                    // Score: pass movie -5
+                    setScore(getScore() - 5);
+                    updateScoreDisplay();
                     revealRightAnswers();
                     passBtn.disabled = true;
                     passBtn.innerText = "✔️ Movie Revealed";
