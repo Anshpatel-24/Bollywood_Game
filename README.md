@@ -1,33 +1,39 @@
-# Bollywood Game
+# Bollywood Movie Guessing Game
 
-**Bollywood Game** is a fun, interactive web-based guessing game inspired by the classic party game "Bollywood". The goal is to guess a randomly selected Bollywood movie, along with its hero and heroine, using hints and letter clues.
+A web-based interactive Bollywood Movie Guessing Game built with HTML, CSS, and JavaScript.
 
 ## Features
 
-- **Random Movie Generation :** Get a random Bollywood movie from a CSV database.
-- **Manual Movie Entry :** Enter your own movie to play with friends.
-- **Hero & Heroine Guessing :** Add and guess the main actors and actresses.
-- **Hints :** After several failed attempts, unlock hints such as genre, release year, and a summary.
-- **Autocomplete Suggestions :** Smart suggestions for movie, hero, and heroine names.
-- **Responsive Design :** Mobile-friendly and visually engaging UI.
-- **Animated Feedback :** Popup and typewriter animations for results and winning messages.
+- **Random Movie Generation :** Generate a random Bollywood movie for each round from a CSV file.
+- **Manual Movie Entry :** Enter your own movie to play with custom choices.
+- **Hero & Heroine Guessing :** Guess the hero and heroine for the selected movie.
+- **Autocomplete Suggestions :** Real-time suggestions for movie, hero, and heroine names as you type.
+- **Hint System :** Get hints for genre, release year, and a summary (summary shown after several failed attempts).
+- **Pass Movie :** If stuck, reveal the answer by passing the movie (with a score penalty).
+- **Score System :**
+  - +10 for correct movie guess, -2 for wrong movie guess.
+  - +5 for correct hero/heroine guess (only once per unique correct guess), -1 for wrong guess.
+  - -5 for using the "Pass Movie" feature.
+  - Score is stored in localStorage and persists across sessions.
+- **Reset Score :** Button to reset your score at any time.
+- **Animated Feedback :** Typewriter and popup animations for results and feedback.
+- **Responsive UI :** Works well on both desktop and mobile devices.
+- **CSV Data Management :** Movie, hero, and heroine data is loaded from a CSV file for easy updates.
 
 ## How to Play
 
-1. Click "Generate Random Movie" or enter a movie name manually.
-2. Add the hero and heroine names.
-3. Click "Let's Play" to start the guessing round.
-4. Try to guess the movie, hero, and heroine names using the clues.
-5. After multiple failed attempts, click "Show Hint" for help.
-6. Win by guessing all correctly!
+1. Start by generating a random movie or entering your own.
+2. Guess the hero and heroine names using the input fields (with suggestions).
+3. Guess the movie name.
+4. Use the hint button if you get stuck.
+5. If you can't guess, use the "Pass Movie" button to reveal the answer (with a score penalty).
+6. Your score is displayed at the top and can be reset anytime.
 
 ## Technologies Used
 
 - HTML, CSS, JavaScript
 - [PapaParse](https://www.papaparse.com/) for CSV parsing
 
-## Credits
+## Author
 
-Game created by Ansh Patel 😇
-
----
+Game Created By : Ansh Patel 😇
