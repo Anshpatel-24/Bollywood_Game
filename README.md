@@ -14,6 +14,7 @@ A web-based interactive Bollywood Movie Guessing Game built with HTML, CSS, and 
   - +10 for correct movie guess, -2 for wrong movie guess.
   - +5 for correct hero/heroine guess (only once per unique correct guess), -1 for wrong guess.
   - -5 for using the "Pass Movie" feature.
+  - -2 for using the hint button, -3 for movie summary hint.
   - Score is stored in localStorage and persists across sessions.
 - **Reset Score :** Button to reset your score at any time.
 - **Animated Feedback :** Typewriter and popup animations for results and feedback.
