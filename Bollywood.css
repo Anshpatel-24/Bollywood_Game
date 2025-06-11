@@ -723,7 +723,7 @@ footer{
     padding: 2vh 1vh;
     border-radius: 2vh;
     background-color: aquamarine;
-    width: 45vh;
+    /* width: 45vh; */
     
     background-image: conic-gradient(from var(--angle),rgb(153, 248, 177),rgb(199, 255, 230),rgb(217, 255, 184),rgb(153, 248, 177),rgb(199, 255, 230),rgb(217, 255, 184),rgb(153, 248, 177));
     animation: 3s spin linear infinite;
@@ -1067,15 +1067,15 @@ strong{
 
     position: relative;
     z-index: 0;
-    border:4px solid rgb(94, 61, 0);
+    border:4px solid rgb(174, 113, 0);
 }
 
 #reset-score-btn:hover{
     color: darkgreen;
     background-color: #d1f54d;
-    border: 4px solid rgb(0, 0, 92);
+    border: 4px solid rgb(67, 210, 23);
 }
 #reset-score-btn:active{
     background-color: #4de1f5;
-    border: 4px solid rgb(255, 255, 255);
+    border: 4px solid rgb(106, 106, 255);
 }
