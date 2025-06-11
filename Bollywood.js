@@ -29,7 +29,7 @@ let suggestion_flag = false;
 
 // --- Score System ---
 function getScore() {
-    return parseInt(localStorage.getItem('bolly_score') || '0', 10);
+    return parseInt(localStorage.getItem('bolly_score') || '0');
 }
 function setScore(val) {
     localStorage.setItem('bolly_score', val);
@@ -1041,6 +1041,9 @@ function startGame(){
     document.getElementById('show-hint-btn').onclick = function() {
         hintButtonShown = true;
 
+        setScore(getScore() - 2);
+        updateScoreDisplay();
+
         document.getElementById('hint-content').style.display = 'block';
 
         if(failedGuessCount >= 8) {
@@ -1068,20 +1071,18 @@ let userWin = false;
 
 function movieNameCheck(){
     let play_again_btn = document.querySelector('#play_again_btn');
-    let result_element = document.querySelector('#result');
-    result_element.classList.remove('visibility-hidden');
 
     let show_Right_Element = document.querySelector('.play-showing-Right');
     let win_result_element = document.querySelector('#win-result');
 
     let userMovie = document.querySelector('#Paly-guess-movie-name');
     let showResult = document.querySelector('#result');
+    showResult.classList.remove('visibility-hidden');
 
     if(userMovie.value !== ''){
         let guessMovie = userMovie.value.toUpperCase().replaceAll(' ','').trim();
 
         let rightMovie = document.querySelector('.Right_Movie-1');
-        let finalResult = document.querySelector('#win-result');
 
         let rightHeros = document.querySelector('.Right_Hero-1');
         let rightHeroines = document.querySelector('.Right_Heroine-1');
@@ -1134,6 +1135,7 @@ function movieNameCheck(){
             }
 
             play_again_btn.classList.remove('visibility-hidden');
+            play_again_btn.classList.add('show-popup');
             
         }else{
             if(!revealMovieName) {
@@ -1161,14 +1163,12 @@ function movieNameCheck(){
 
 function HeroNameCheck(){
 
-    let result_element = document.querySelector('#result');
-    result_element.classList.remove('visibility-hidden');
-
     let show_Right_Element = document.querySelector('.play-showing-Right');
 
     let userHero = document.querySelector('#Play-guess-hero-name');
 
     let showResult = document.querySelector('#result');
+    showResult.classList.remove('visibility-hidden');
 
     if(userHero.value !== ''){
         let guessHero = userHero.value.toUpperCase().replaceAll(' ','').trim();
@@ -1227,14 +1227,12 @@ function HeroNameCheck(){
 
 function heroineNameCheck(){
 
-    let result_element = document.querySelector('#result');
-    result_element.classList.remove('visibility-hidden');
-
     let show_Right_Element = document.querySelector('.play-showing-Right');
 
     let userHeroine = document.querySelector('#Play-guess-heroine-name');
 
     let showResult = document.querySelector('#result');
+    showResult.classList.remove('visibility-hidden');
 
     if(userHeroine.value !== ''){
         let guessHeroine = userHeroine.value.toUpperCase().replaceAll(' ','').trim();
@@ -1296,12 +1294,21 @@ function showHintButtonIfNeeded(){
 
     if (failedGuessCount >= 5 && !hintButtonShown) {
         hintButton.style.display = 'block';
+
+        hintButton.classList.add('show-popup');
         // hintButtonShown = true;
     } else if (failedGuessCount >= 10 && !summaryHintShown && hintButtonShown) {
+
+        hintButton.classList.add('show-popup');
+        
         hintButton.style.display = 'block';
         summaryHint.style.display = 'flex';
         hintButton.innerText = '💡Show Movie Hint 🔍';
         hintButton.onclick = function() {
+
+            setScore(getScore() - 3);
+            updateScoreDisplay();
+
             document.getElementById('hint-content').style.display = 'block';
             document.getElementById('hint-summary').innerText = movieHint.summary || 'No summary available.';
             this.style.display = 'none';
@@ -1318,9 +1325,16 @@ function showPassMovieButton() {
     if (passBtnContainer) {
         passBtnContainer.style.display = 'block';
         const passBtn = document.getElementById('pass-movie-btn');
+        passBtn.classList.add('show-popup');
         if (passBtn) {
             passBtn.onclick = function() {
                 if(!userWin){
+
+                    passBtn.classList.remove('show-popup');
+                    // Force reflow for restart animation
+                    void passBtn.offsetWidth;
+                    passBtn.classList.add('show-popup');
+
                     // Score: pass movie -5
                     setScore(getScore() - 5);
                     updateScoreDisplay();
@@ -1345,6 +1359,7 @@ function revealRightAnswers() {
 
     let play_again_btn = document.querySelector('#play_again_btn');
     play_again_btn.classList.remove('visibility-hidden');
+    play_again_btn.classList.add('show-popup');
 
     const show_Right_Element = document.querySelector('.play-showing-Right');
     if (!show_Right_Element) return;
@@ -1359,13 +1374,13 @@ function revealRightAnswers() {
 
     // Hero
     const rightHeros = show_Right_Element.querySelector('.Right_Hero-1');
-    if (rightHeros && rightHeros.innerText.trim() === '') {
+    if (rightHeros !== null) {
         rightHeros.innerText = heros.length ? ` ${heros.join(' , ')} ` : 'None';
     }
 
     // Heroine
     const rightHeroines = show_Right_Element.querySelector('.Right_Heroine-1');
-    if (rightHeroines && rightHeroines.innerText.trim() === '') {
+    if (rightHeroines !== null) {
         rightHeroines.innerText = heroines.length ? ` ${heroines.join(' , ')} ` : 'None';
     }
 }
