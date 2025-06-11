@@ -621,7 +621,7 @@ body{
     animation: none;
 }
 
-#result.show-popup {
+#result.show-popup , .show-popup {
     opacity: 1;
     transform: scale(1.05);
     animation: popup-bounce 0.40s cubic-bezier(.68,-0.55,.27,1.55);
