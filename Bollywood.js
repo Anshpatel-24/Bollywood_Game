@@ -48,6 +48,8 @@ function updateScoreDisplay() {
     document.getElementById('reset-score-btn').onclick = function() {
         setScore(0);
         updateScoreDisplay();
+
+        document.getElementById('reset-score-btn').classList.add('show-popup');
     };
 }
 // Call this at the start of the game
@@ -605,6 +607,9 @@ function playButton(){
             </span>
         </button>
     `;
+
+    let letsPlayBtn = document.querySelector('#lets-play-btn');
+    letsPlayBtn.classList.add('show-popup');
 
     suggestion_flag = true;
     loadAndParseCSV();
