@@ -3,6 +3,10 @@ body{
     text-align: center;
     height: 100vh;
     background-image: radial-gradient(transparent 20%, blue);
+    background-image: url('https://static.vecteezy.com/system/resources/previews/002/511/111/non_2x/popcorn-drink-movie-film-3d-glasses-and-movie-ticket-vector.jpg');
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-size: 100% 100%;
     /* background: radial-gradient(rgb(66, 208, 255), rgb(179, 179, 254), rgb(143, 143, 245), rgb(101, 101, 236), rgb(58, 58, 186), rgba(0, 0, 139, 1)); */
     background-color:rgb(182, 208, 255);
 
@@ -10,6 +14,10 @@ body{
     font-optical-sizing: auto;
     font-style: normal;
     font-weight: 900;
+}
+
+main{
+    height: 80%;
 }
 
 #actors{
@@ -23,10 +31,16 @@ body{
 #Heros, #Heroine{
     margin: 10px;
     padding: 20px;
-    border-radius: 15px;
+    border-radius: 1.5vmin;
     background-color:rgb(0, 132, 255);
     position: relative;
-    width: 70%;
+    width: 40%;
+}
+
+@media screen and (max-width: 1250px) {
+    #Heros, #Heroine{
+        width: 70%;
+    }
 }
 
 #grid_heros, #grid_heroines {
@@ -37,9 +51,12 @@ body{
 }
 
 @media screen and (max-width: 500px) {
+
     #grid_heros, #grid_heroines {
-        /* width: 100%; */
-        display:inline-flex;
+        width: 100%;
+        display: grid;
+        grid-template-columns: 30% 40% 30%;
+        column-gap: 1%;
     }
 
     .play-check-btn{
@@ -47,21 +64,14 @@ body{
     }
 }
 
-@media screen and (max-width: 405px) {    
-    #grid_heros, #grid_heroines {
-        width: 100%;
-        display:grid;
-        grid-template-columns: 30% 40% 30%;
-    }
-}
 
 #play-game-container{
     /* height: 10%; */
     justify-self: center;
     width: 70%;
-    margin-top: 30px;
-    padding: 20px;
-    border-radius: 15px;
+    margin-top: 5dvh;
+    padding: 3vmin;
+    border-radius: 2vmin;
     background-color:rgb(0, 132, 255);
     position: relative;
 }
@@ -82,8 +92,8 @@ body{
     left: 50%;
     translate: -50% -50%;
     z-index: -1;
-    padding: 7px;
-    border-radius: 1rem;
+    padding: 1vmin;
+    border-radius: 2vmin;
     animation: 3s spin linear infinite;
 }
 
@@ -102,27 +112,31 @@ body{
 }
 
 .hero_inputs, .heroine_inputs{
-    font-size: 1.3rem;
+    font-size: 3vmin;
     width: 100%;
 }
 
 #hero_label, #heroine_label{
+    /* font-size: 30px;    in mobile font-size : 17px */
+
     width: 100%;
     padding-top: 5px;
-    font-size: 30px;    /* in mobile font-size : 17px */
+    font-size: 3.3vmin;
+    align-content: center;
     color: rgb(16, 16, 121);
 }
 
-@media screen and (max-width: 500px){
+@media screen and (max-width: 400px){
     #hero_label, #heroine_label{
-        font-size: 16px;    /* in mobile font-size : 17px */
+        font-size: 4vmin;
+        /* font-size: 16px;    in mobile font-size : 17px */
     }
 }
 
 .actor_btn{
     background: linear-gradient(to right, rgb(254, 250, 2), rgb(236, 174, 4));
     color: rgb(94, 61, 0);
-    border-radius: 10px;
+    border-radius: 2vmin;
     height: 100%;
     width: 100%;
     margin-left: 10px;
@@ -132,6 +146,7 @@ body{
     border: none;
 
     min-width: 5%;
+    font-size: 2.5vmin;
 }
 
 .actor_btn::after{
@@ -139,7 +154,7 @@ body{
     height: 100%;
     width: 0px;
     background: linear-gradient(to right, rgb(224, 86, 73), rgb(24, 68, 226));
-    border-radius: 10px;
+    border-radius: 1.5vmin;
     position: absolute;
     left: 0;
     top: 0;
@@ -156,20 +171,28 @@ body{
 }
 
 .actor_btn:active{
-    border-radius: 15px;
-    border: 5px solid rgb(232, 244, 255);
+    /* border-radius: 15px; */
+    border: 0.5vmin solid rgb(232, 244, 255);
 }
 
 #hero-name, #heroine-name{
+    text-transform: capitalize;
     border: 1px solid darkblue;
-    border-radius: 6px;
+    border-radius: 2vmin;
     background-color: rgb(193, 249, 253);
-    font-size: 18px;
-    color:darkgreen;
-    height: 100%;
-    padding-left: 10px;
+    color: darkgreen;
+    /* height: 80%; */
+    padding: 1.5vmin 0.5vmin;
+    padding-left: 1.5vmin;
     width: 90%;
-    font-size: 1.4rem;
+    font-size: 3vmin;
+    margin-top: 2px;
+}
+
+#hero-name:focus, #heroine-name:focus{
+    outline: none;
+    border: 2px solid rgb(92, 0, 0);
+    box-shadow: 0 0 10px rgba(13, 238, 6, 0.5);
 }
 
 #hero-name::spelling-error, #heroine-name::spelling-error{
@@ -177,42 +200,39 @@ body{
 }
 
 #Hero_fullname, #Heroine_fullname{
-    width: 85%;
-    position: relative;
-    left: 5%;
-    color:darkblue;
+        /* width: 85%; */
+    /* position: relative; */
+    /* left: 5%; */
+    color: darkblue;
     background-color: blueviolet;
-    border-radius: 10px;
-    padding: 10px;
+    border-radius: 2vmin;
+    padding: 1vmin;
     margin: 0px;
     margin-top: 20px;
-    font-size: 2.3rem;
+    font-size: 5vmin;
 }
 
 #Hero-names-list, #Heroine-names-list{
-    width: 86%;
+        /* width: 86%; */
     /* word-wrap: break-word; */
     /* text-wrap: wrap; */
-    margin: 5px 7%;
-    padding: 5px 0;
-    font-size: 2rem;
+    margin: 1vmin 4%;
+    padding: 1vmin 0;
+    font-size: 75%;
     color: rgb(98, 0, 196);
     background-color: rgb(182, 113, 247);
-    border-radius: 1rem;
+    border-radius: 2vmin;
 }
 
 #Movie{
     background-color: rgb(107, 7, 202);
+    justify-self: anchor-center;
     width: 50%;
     height: 100px;
-    position: relative;
-    top: 20px;
-    left: 23%;
     padding: 15px;
-    margin-bottom: 40px;
+    margin: 40px;
     border-radius: 15px;
     align-items: center;
-
     display: grid;
     grid-template-columns: 30% 50% 20%;
 }
@@ -220,10 +240,9 @@ body{
 @media screen and (max-width: 810px) {
     #Movie{
         display: block;
-        width: 90%;
-        position: relative;
-        left: 1%;
-
+        width: 80%;
+        height: 15vi;
+        
         display: flex;
         flex-grow: 1;
     }
@@ -233,6 +252,20 @@ body{
     }
     #movie-name{
         width: 30%;
+    }
+
+    #movie_label{
+        align-content: center;
+        font-size: 5vmin !important;
+    }
+
+    #movie-name,.movie_btn{
+        font-size: 4vmin !important;
+        border-radius: 3vmin !important;
+    }
+
+    #movie-name{
+        padding-left: 1.5vmin !important;
     }
 }
 
@@ -270,7 +303,7 @@ body{
 .movie_btn:active{
     color: lightgreen;
     background-color: darkgreen;
-    border: 5px solid rgb(199, 253, 200);
+    border: 0.6vmin solid rgb(199, 253, 200);
 }
 
 #movie-name{
@@ -284,6 +317,13 @@ body{
     border-radius: 20px;
 }
 
+#movie-name:focus{
+    outline: none;
+    border: 2px solid rgb(92, 0, 0);
+    box-shadow: 0 0 10px rgba(13, 238, 6, 0.5);
+}
+
+
 .js-display-bg-color{
     display: grid;
     grid-template-columns: 60% 2% 38%;
@@ -295,7 +335,7 @@ body{
     position: relative;
     left: 10%;
     border-radius: 8px;
-    padding: 10px 0;
+    padding: 2vmin 0;
     /* margin-top: 10px; */
 
     font-size: 2.5vi;
@@ -347,6 +387,7 @@ body{
 }
 
 #draw-Movie, #draw-Hero, #draw-Heroine{
+    font-size: 4vi;
     width: 100%;
     margin: 0;
 }
@@ -369,19 +410,23 @@ body{
 .delete-btn-arrange{
     display: grid;
     grid-template-columns: 80% 20%;
-    column-gap:  5px;
+    /* column-gap:  5px; */
     text-align: center;
     justify-content: center;
     align-items: center;
 }
 
 .delete-button{
-    height: 70%;
+    height: 60%;
     width: 90%;
     background-color: lightcoral;
     color: darkred;
     border-radius: 10px;
     cursor: pointer;
+}
+
+.material-symbols-outlined {
+    font-size: 4vmin !important;
 }
 
 .delete-button:active{
@@ -393,21 +438,25 @@ body{
 }
 
 #lets-play-btn{
-    display: grid;
-    grid-template-columns: 20% 60% 20%;
+
+    display: flex;
+    justify-content: space-evenly;
     background-color: burlywood;
     color: brown;
-    height: 75px;
-    width: 200px;
-    border-radius: 20px;
-    font-size: 1.5rem;
+    /* height: 75px; */
+    width: 50vmin;
+    border-radius: 4vmin;
+    font-size: 4.7vmin;
+    padding: 3vmin;
     align-items: center;
     cursor: pointer;
-    margin-top: 50px;
-
+    justify-self: center;
+    margin: 50px 0;
     position: relative;
     z-index: 0;
     border: 3px solid darkred;
+
+    /* text-shadow: 1px 1px 2px #795548; */
 }
 
 #lets-play-btn::after{
@@ -415,7 +464,7 @@ body{
     height: 100%;
     width: 0px;
     background: linear-gradient(to right,rgb(198, 255, 55),rgb(41, 224, 41));
-    border-radius: 15px;
+    border-radius: 3.5vmin;
     position: absolute;
     left: 0;
     top: 0;
@@ -437,7 +486,7 @@ body{
 }
 
 
-@media screen and (max-width: 700px) {
+@media screen and (max-width: 810px) {
     .play-display-name-container{
         width: 90%;
         position: relative;
@@ -450,7 +499,9 @@ body{
         left: 5%;
         font-size: 3.5vi;
     }
+}
 
+@media screen and (max-width: 1050px) {
     #play-game-container{
         width: 80%;
     }
@@ -459,14 +510,25 @@ body{
 /* playing game  */
 
 .Play-guessing-container{
-    padding: 2%;
+    /* padding: 2%;
     display: grid;
     grid-template-columns: 39% 1% 40% 20%;
     column-gap: 10px;
     justify-content: center;
     align-items: center;
     font-size: 1.8vi;
+    color: darkgreen; */
+
+
+    padding: 2%;
+    display: grid;
+    grid-template-columns: 32vmin 0vmin 30vw 15vw;
+    column-gap: 2%;
+    justify-content: center;
+    align-items: center;
+    font-size: 2.5vmin;
     color: darkgreen;
+
 }
 
 .Play-Guessing{
@@ -475,21 +537,44 @@ body{
 }
 
 #Paly-guess-movie-name, #Play-guess-hero-name, #Play-guess-heroine-name{
-    background-color: bisque;
+    /* background-color: bisque;
     color: brown;
     border-radius: 7px;
     border: 3px solid saddlebrown;
     font-size: 2.5vi;
     padding: 8px 0 8px 8px;
     width: 90%;
+    justify-self: center; */
+
+
+    background-color: bisque;
+    color: brown;
+    border-radius: 1.5vmin;
+    border: 0.6vmin solid saddlebrown;
+    font-size: 2.5vmin;
+    padding: 1vmin 0 1vmin 1vmin;
+    width: 90%;
     justify-self: center;
+    text-transform: capitalize;
+}
+
+#Paly-guess-movie-name:focus , #Play-guess-hero-name:focus , #Play-guess-heroine-name:focus{
+    outline: none;
+    border: 0.5vmin solid rgb(92, 0, 0);
+    box-shadow: 0 0 10px rgba(13, 238, 6, 0.5);
 }
 
 .Play-guess-lable{
-    text-align: left;
-    font-size: 2.6vi;
+    /* text-align: left;
+    font-size: 2.95vmin;
     color: #fff371;
 
+    text-shadow: 3px 2px 4px rgb(160 119 2); */
+
+
+    text-align: left;
+    font-size: 3.3vmin;
+    color: #fff371;
     text-shadow: 3px 2px 4px rgb(160 119 2);
 }
 
@@ -499,25 +584,26 @@ body{
         /* padding: 10px; */
       }
 
-      .Play-guess-lable {
+      /* .Play-guess-lable {
         font-size: 2.9vi !important;
-      }
+      } */
     }
 
 .play-check-btn{
     background: linear-gradient(to right, rgb(254, 250, 2), rgb(236, 174, 4));
     background-color: rgb(93, 255, 118);
     color: rgb(94, 61, 0);
-    border-radius: 10px;
+    border-radius: 1.5vmin;
     height: 100%;
     width: 90%;
-    margin-left: 10px;
+    /* margin-left: 10px; */
     cursor: pointer;
     position: relative;
     z-index: 0;
-    border: none;
+    /* border: none; */
 
-    font-size: 2.5vi;
+    font-size: 3.5vmin;
+    padding: 0;
 }
 
 .play-check-btn::after{
@@ -525,7 +611,7 @@ body{
     height: 100%;
     width: 0px;
     background: linear-gradient(to right, rgb(224, 86, 73), rgb(24, 68, 226));
-    border-radius: 10px;
+    border-radius: 1vmin;
     position: absolute;
     left: 0;
     top: 0;
@@ -542,8 +628,8 @@ body{
 }
 
 .play-check-btn:active{
-    border-radius: 15px;
-    border: 5px solid rgb(232, 244, 255);
+    /* border-radius: 15px; */
+    border: 0.6vmin solid rgb(232, 244, 255);
 }
 
 .play-showing-Right{
@@ -551,7 +637,7 @@ body{
     min-width: 70%;
     justify-self: center;
     padding: 10px 0;
-    margin: 80px;
+    margin-top: 55px;
     border-radius: 30px;
     border: 4px dashed green;
     color: darkgreen;
@@ -561,7 +647,7 @@ body{
     align-items: center;
 }
 
-@media (max-width: 700px) {
+@media (max-width: 900px) {
     .play-showing-Right {
         width: 90% !important;
     }
@@ -571,11 +657,12 @@ body{
     text-transform: capitalize;
     display: grid;
     /* width: 100%; */
-    grid-template-columns: 36% 1% 53%;
+    grid-template-columns: 37% 1% 60%;
     column-gap: 1%;
     padding: 0 4%;
 
     /* font-size: clamp(1.1rem, 4vw, 2rem); */
+    font-size: 4vmin;
 }
 
 .Right_Movie_lable, .Right_Hero_lable, .Right_Heroine_lable {
@@ -599,17 +686,20 @@ body{
 }
 
 #result{
-    max-width: 75%;
-    min-height: 60px;
-    align-content: center;
-    font-size: 2.5vi;
-    margin: 50px;
-    padding: 15px 30px;
-    justify-self: center;
-    border-radius: 20px;
     background: linear-gradient(to right, rgb(125, 228, 125), yellow, rgb(251, 144, 144), rgb(255, 205, 113), rgb(190, 120, 255));
     color: rgb(92, 67, 0);
     text-shadow: 1px 1px 2px rgb(58, 4, 255);
+
+
+    align-content: center;
+    font-size: 3.5vmin;
+    margin: 30px;
+    padding: 4vmin 2vmin;
+    justify-self: center;
+    border-radius: 4vmin;
+    background: linear-gradient(to right, rgb(144 255 144), #ffff5f, rgb(255 161 161), rgb(255 217 148), rgb(202 148 253));
+    color: #1b5e20;
+    text-shadow: 1px 1px 2px #4CAF50;
 
     /* Popup animation */
     opacity: 0;
@@ -646,14 +736,14 @@ body{
 }
 
 #win-result{
-    max-width: 85%;
+    width: 75%;
     max-height: 150px;
-    font-size: 3vi;
+    font-size: 4vmin;
     align-content: center;
-    margin: 50px;
-    padding: 15px 30px;
+    /* margin: 50px; */
+    padding: 4vmin 2vmin;
     justify-self: center;
-    border-radius: 20px;
+    border-radius: 4vmin;
 
     background-image: conic-gradient(from var(--angle),rgb(153, 248, 177),rgb(199, 255, 230),rgb(217, 255, 184),rgb(153, 248, 177),rgb(199, 255, 230),rgb(217, 255, 184),rgb(153, 248, 177));
     animation: 3s spin linear infinite;
@@ -674,6 +764,7 @@ body{
     animation: typewriter 2.2s steps(40, end) 1 normal both, blink-caret 0.7s step-end infinite;
     white-space: nowrap;
     overflow: hidden;
+    /* text-wrap: wrap; */
 }
 
 @keyframes typewriter {
@@ -686,20 +777,30 @@ body{
     50% { border-color: transparent; }
 }
 
-@media screen and (max-width: 800px) {
-    #result, #win-result {
+@media screen and (max-width: 870px) {
+    #result{
         width: 80%;
-        font-size: 3vi;
+        /* font-size: 3vi;
         max-height: 70px !important;
-        padding: 5px 10px;
+        padding: 5px 10px; */
     }
+
+    #win-result{
+        width: 95%;
+        padding: 4vmin 0vmin;
+    }
+}
+
+#footer_info{
+    height: 12vmin;
 }
 
 footer{
     /* position: absolute;
     bottom: 0;
     width: 94%; */
-    margin-top: 40px;
+
+    /* margin-top: 40px; */
     padding: 30px;
     /* font-size: 1.5vi; */
     color: rgb(3, 3, 184);
@@ -712,24 +813,22 @@ footer{
     background-color:rgb(135, 205, 222);
     padding: 10px;
     border-radius: 10px;
-    font-size: 2.4vi;
-    max-height: 70px;
-    width: 50%;
+    font-size: 4vmin;
+    color: rgb(3, 3, 184);
+    text-shadow: 1px 1px 2px rgb(58, 4, 255);
+    margin-top: 10vw;
 }
 
 #random_movie{
-    font-size: 3.3vh;
+    font-size: 5vmin;
     font-family: Verdana, Geneva, Tahoma, sans-serif;
-    padding: 2vh 1vh;
-    border-radius: 2vh;
+    padding: 2vmin 1vmin;
+    border-radius: 3vmin;
     background-color: aquamarine;
-    /* width: 45vh; */
-    
-    background-image: conic-gradient(from var(--angle),rgb(153, 248, 177),rgb(199, 255, 230),rgb(217, 255, 184),rgb(153, 248, 177),rgb(199, 255, 230),rgb(217, 255, 184),rgb(153, 248, 177));
+    background-image: conic-gradient(from var(--angle), rgb(153, 248, 177), rgb(199, 255, 230), rgb(217, 255, 184), rgb(153, 248, 177), rgb(199, 255, 230), rgb(217, 255, 184), rgb(153, 248, 177));
     animation: 3s spin linear infinite;
-    border: 4px solid rgb(0, 74, 39);
+    border: 0.7vmin solid rgb(0, 74, 39);
     color: rgb(13, 2, 163);
-
     cursor: pointer;
     position: relative;
     z-index: 0;
@@ -740,7 +839,7 @@ footer{
     height: 100%;
     width: 0px;
     background: linear-gradient(to top, rgb(73, 224, 88), rgb(202, 226, 24));
-    border-radius: 1.5vh;
+    border-radius: 2vmin;
     position: absolute;
     left: 0;
     top: 0;
@@ -754,7 +853,7 @@ footer{
 
 #random_movie:hover{
     color: rgb(95, 1, 74);
-    border: 5px solid green;
+    border: 1vmin solid green;
 }
 
 #random_movie:active{
@@ -766,7 +865,7 @@ footer{
 
 label {
       display: block;
-      margin-bottom: 6px;
+      /* margin-bottom: 6px; */
       font-weight: 600;
       color: #444;
     }
@@ -780,6 +879,9 @@ label {
     }
 
     .suggestions {
+        font-size: 2.5vmin;
+        color: darkgreen;
+
       position: absolute;
       /* top: 100%; */
       left: 0;
@@ -795,29 +897,31 @@ label {
     }
 
     #movie-suggestions{
-        right: 4%;
-        left: 4%;
+        top: 97%;
+        right: 5%;
+        left: 5%;
 
         z-index: 12;
     }
 
-    #movie-name-suggestions{
-        /* top: 94%; */
-        right: 4%;
-        left: 4%;
-    }
+    /* #movie-name-suggestions{
+        top: 97%;
+        right: 5%;
+        left: 5%;
+    } */
 
     #actor-suggestions {
-        right: 4%;
-        left: 4%;
+        top: 97%;
+        right: 5%;
+        left: 5%;
 
         z-index: 11;
     }
 
     #actress-suggestions {
-        /* top: 94%; */
-        right: 4%;
-        left: 4%;
+        top: 97%;
+        right: 5%;
+        left: 5%;
     }
 
     .suggestion-item {
@@ -844,20 +948,24 @@ label {
     }
 
 #play_again_btn{
-    display: grid;
-    grid-template-columns: 20% 60% 20%;
+    /* display: grid;
+    grid-template-columns: 20% 60% 20%; */
+    
+
+
+    display: flex;
+    justify-content: space-evenly;
     background-color: burlywood;
     color: brown;
-    height: 75px;
-    width: 300px;
-    border-radius: 20px;
-    font-size: 1.5rem;
+    /* height: 75px; */
+    width: 50vmin;
+    border-radius: 4vmin;
+    font-size: 4.7vmin;
+    padding: 3vmin;
     align-items: center;
     cursor: pointer;
-    margin-top: 50px;
     justify-self: center;
-    margin: 50px 20px;
-
+    margin: 50px 0;
     position: relative;
     z-index: 0;
     border: 3px solid darkred;
@@ -868,7 +976,7 @@ label {
     height: 100%;
     width: 0px;
     background: linear-gradient(to right,rgb(198, 255, 55),rgb(41, 224, 41));
-    border-radius: 15px;
+    border-radius: 3.5vmin;
     position: absolute;
     left: 0;
     top: 0;
@@ -932,34 +1040,31 @@ strong{
 }
 
 #show-hint-btn{
-    background:#ffecb3;
-    color:#8d6e00;
-    min-height: 75px;
-    min-width: 300px;
-    border-radius: 20px;
-    font-size: 2rem;
+    background: #ffecb3;
+    color: #8d6e00;
+    border-radius: 4vmin;
+    font-size: 5vmin;
+    padding: 3vmin 1vmin;
     align-items: center;
     cursor: pointer;
     margin-top: 50px;
     justify-self: center;
-
     position: relative;
     z-index: 0;
-    border:4px solid #523d00;
-    font-weight:bold;
-
-    display:none;
+    border: 0.8vmin solid #523d00;
+    font-weight: bold;
+    display: none;
 }
 
 #show-hint-btn:hover{
     color: darkgreen;
     background-color: #d1f54d;
-    border: 4px solid rgb(0, 0, 92);
+    border: 0.8vmin solid rgb(0, 0, 92);
 }
 
 #show-hint-btn:active{
     background-color: #4de1f5;
-    border: 7px solid rgb(0, 0, 92);
+    border: 1vmin solid rgb(0, 0, 92);
 }
 
 .hint_grid{
@@ -986,20 +1091,16 @@ strong{
 #pass-movie-btn{
     background-color: #ffea80;
     color: #b71c1c;
-    min-height: 70px;
-    /* min-width: 300px; */
-    border-radius: 20px;
-    font-size: 1.7rem;
+    border-radius: 3vmin;
+    font-size: 4vmin;
+    padding: 1.5vmin;
     align-items: center;
     cursor: pointer;
-    margin: 15px 0 20px 0;
+    margin-bottom: 7px;
     justify-self: center;
-
     position: relative;
     z-index: 0;
-    border:4px solid rgb(94, 61, 0);
-
-    padding-right: 20px;
+    border: 0.6vmin solid rgb(94, 61, 0);
 }
 
 #pass-movie-btn::after{
@@ -1007,7 +1108,7 @@ strong{
     height: 100%;
     width: 0px;
     background: linear-gradient(to top, rgb(73, 224, 88), rgb(202, 226, 24));
-    border-radius: 15px;
+    border-radius: 2.5vmin;
     position: absolute;
     left: 0;
     top: 0;
@@ -1022,12 +1123,12 @@ strong{
 #pass-movie-btn:hover{
     color: darkgreen;
     /* background-color: #d1f54d; */
-    border: 4px solid rgb(0, 0, 92);
+    border: 0.6vmin solid rgb(0, 0, 92);
 }
 
 #pass-movie-btn:active{
     /* background-color: #4de1f5; */
-    border: 7px solid rgb(0, 0, 92);
+    border: 1vmin solid rgb(0, 0, 92);
 }
 
 #score-bar{
@@ -1042,7 +1143,7 @@ strong{
     color:#fff;
     padding:15px 10px;
     text-align:center;
-    font-size:1.7rem;
+    font-size: 5vmin;
     letter-spacing:1px;
     justify-self: center;
 
@@ -1057,25 +1158,47 @@ strong{
 #reset-score-btn{
     background-color: #ffea80;
     color: #b71c1c;
-    height: 50px;
-    width: 190px;
-    border-radius: 20px;
-    font-size: 25px;
+    /* height: 50px; */
+    /* width: 190px; */
+    border-radius: 3vmin;
+    font-size: 4vmin;
+    padding: 1vmin;
     align-items: center;
     cursor: pointer;
     justify-self: center;
-
     position: relative;
     z-index: 0;
-    border:4px solid rgb(174, 113, 0);
+    border: 0.7vmin solid rgb(174, 113, 0);
 }
 
 #reset-score-btn:hover{
     color: darkgreen;
     background-color: #d1f54d;
-    border: 4px solid rgb(67, 210, 23);
+    border: 0.7vmin solid rgb(67, 210, 23);
 }
 #reset-score-btn:active{
     background-color: #4de1f5;
-    border: 4px solid rgb(106, 106, 255);
+    border: 0.7vmin solid rgb(106, 106, 255);
+}
+
+/* --- Shake Animation (for wrong input) --- */
+.shake-anim {
+    animation: shake 0.7s cubic-bezier(.36,.07,.19,.97) both;
+}
+@keyframes shake {
+    10%, 90% { transform: translateX(-8px); }
+    20%, 80% { transform: translateX(4px); }
+    30%, 50%, 70% { transform: translateX(-8px); }
+    40%, 60% { transform: translateX(8px); }
+}
+
+/* --- Glow Animation (for correct input) --- */
+.glow-anim {
+    animation: glow 1.2s ease-in-out 1;
+    box-shadow: 0 0 24px 8px #fff200, 0 0 48px 16px #00ffe7;
+}
+@keyframes glow {
+    0% { box-shadow: 0 0 0 0 #fff200; }
+    40% { box-shadow: 0 0 24px 8px #fff200, 0 0 48px 16px #00ffe7; }
+    100% { box-shadow: 0 0 0 0 #fff200; }
 }
