@@ -98,12 +98,11 @@ function loadCSV() {
         }
         // heroines.push(random.actress);
 
-        let footerElement = document.querySelector("footer");
+
         let drawMovieName = document.querySelector('#draw-Movie');
 
         let drawActorsElement = document.querySelector('#draw-actor');
 
-        footerElement.classList.remove('visibility-hidden');
     
         displayMovie.classList.add('js-display-bg-color');
         displayHero.classList.add('js-display-bg-color');
@@ -190,8 +189,6 @@ function loadCSV() {
 
 function movieName(){
 
-    let footerElement = document.querySelector("footer");
-
     inputMovie_Value = document.querySelector('#movie-name').value;
     console.log(inputMovie_Value);
     // console.log(" ansh Patel  ".replaceAll(' ',''));
@@ -211,8 +208,6 @@ function movieName(){
         let randomMovieBTN = document.querySelector("#random_movie");
         // randomMovieBTN.classList.add('visibility-hidden');
         randomMovieBTN.style.display = 'none';
-
-        footerElement.classList.remove('visibility-hidden');
     
         displayMovie.classList.add('js-display-bg-color');
         displayHero.classList.add('js-display-bg-color');
@@ -1104,6 +1099,8 @@ function movieNameCheck(){
             showResult.innerText = `🎉Congratulations !!🎊 You are Guessing Right Movie.👏`;
             showResultPopup();
 
+            glowInput('Play-guess-movie-name');
+
             if((rightMovie.innerText.toUpperCase().replaceAll(' ','')).match(guessMovie) === null){
                 rightMovie.innerText += ` ${inputMovie_Value} `;
             }
@@ -1151,6 +1148,8 @@ function movieNameCheck(){
                 // Score: wrong movie -2
                 setScore(getScore() - 2);
                 updateScoreDisplay();
+
+                shakeInput('Paly-guess-movie-name');
             } else {
                 showResult.innerText = `❌ Sorry, You have already passed this movie. 😅`;
                 showResultPopup();
@@ -1185,6 +1184,8 @@ function HeroNameCheck(){
                 show_Right_Element.classList.remove('visibility-hidden');
                 showResult.innerText = '🎉Congratulations !!🎊 You are Guessing Right Hero.👏';
                 showResultPopup();
+
+                glowInput('Play-guess-hero-name');
 
                 if((rightHeros.innerText).match(heros[i]) === null){
 
@@ -1223,6 +1224,8 @@ function HeroNameCheck(){
             // Score: wrong hero -1
             setScore(getScore() - 1);
             updateScoreDisplay();
+
+            shakeInput('Play-guess-hero-name');
         }
     } else {
         showResult.innerText = `😐Please, Enter a Hero Name.🙄`;
@@ -1249,6 +1252,8 @@ function heroineNameCheck(){
                 show_Right_Element.classList.remove('visibility-hidden');
                 showResult.innerText = `🎉Congratulations !!🎊 You are Guessing Right Heroine.👏`;
                 showResultPopup();
+
+                glowInput('Play-guess-heroine-name');
 
                 if((rightHeroines.innerText).match(heroines[i]) === null){
 
@@ -1286,6 +1291,8 @@ function heroineNameCheck(){
             // Score: wrong heroine -1
             setScore(getScore() - 1);
             updateScoreDisplay();
+
+            shakeInput('Play-guess-heroine-name');
         }
     } else {
         showResult.innerText = `😐Please, Enter a Heroine Name.🙄`;
@@ -1413,5 +1420,27 @@ function showWinResultTypewriter(text , line1) {
         // Force reflow to restart animation
         void winEl.offsetWidth;
         winEl.classList.add('typewriter-animate');
+    }
+}
+
+
+
+function shakeInput(inputId) {
+    const input = document.getElementById(inputId);
+    if (input) {
+        input.classList.remove('shake-anim');
+        void input.offsetWidth;
+        input.classList.add('shake-anim');
+        setTimeout(() => input.classList.remove('shake-anim'), 500);
+    }
+}
+
+function glowInput(inputId) {
+    const input = document.getElementById(inputId);
+    if (input) {
+        input.classList.remove('glow-anim');
+        void input.offsetWidth;
+        input.classList.add('glow-anim');
+        setTimeout(() => input.classList.remove('glow-anim'), 1200);
     }
 }
