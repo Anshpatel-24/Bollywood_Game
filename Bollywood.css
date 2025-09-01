@@ -2,18 +2,27 @@ body{
     margin: 0;
     text-align: center;
     height: 100vh;
-    background-image: radial-gradient(transparent 20%, blue);
+/*     background-image: radial-gradient(transparent 20%, blue); */
     background-image: url('https://static.vecteezy.com/system/resources/previews/002/511/111/non_2x/popcorn-drink-movie-film-3d-glasses-and-movie-ticket-vector.jpg');
-    background-repeat: no-repeat;
+/*     background-repeat: no-repeat; */
     background-attachment: fixed;
-    background-size: 100% 100%;
+/*     background-size: 100% 100%; */
     /* background: radial-gradient(rgb(66, 208, 255), rgb(179, 179, 254), rgb(143, 143, 245), rgb(101, 101, 236), rgb(58, 58, 186), rgba(0, 0, 139, 1)); */
     background-color:rgb(182, 208, 255);
+
+    background-position: center center;
+    background-repeat: no-repeat no-repeat;
+    background-size: cover;
+    transition: opacity 700ms;
 
     font-family: "Comfortaa", sans-serif;
     font-optical-sizing: auto;
     font-style: normal;
     font-weight: 900;
+}
+
+body[shown] {
+    opacity: 1;
 }
 
 main{
@@ -1202,3 +1211,4 @@ strong{
     40% { box-shadow: 0 0 24px 8px #fff200, 0 0 48px 16px #00ffe7; }
     100% { box-shadow: 0 0 0 0 #fff200; }
 }
+
