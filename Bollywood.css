@@ -382,9 +382,8 @@ main{
 
 .js-draw-Movie{
     border-radius: 18%;
-    border-bottom: 1vi solid rgb(1, 191, 1);
-
-    color:darkmagenta;
+    border-bottom: 1vi solid limegreen;
+    color: #027e02;
 }
 
 #draw-Movie, #draw-Hero, #draw-Heroine{
@@ -395,16 +394,14 @@ main{
 
 .js-draw-Hero{
     padding: 20% 0;
-    border-right: 0.9vi solid rgb(1, 191, 1);
-
-    color: #2196F3;
+    border-right: 0.9vi solid limegreen;
+    color: #027e02;
 }
 
 .js-draw-Heroine{
     padding: 20% 0;
-    border-left: 0.9vi solid rgb(1, 191, 1);
-
-    color: palevioletred;
+    border-left: 0.9vi solid limegreen;
+    color: #027e02;
 }
 
 #draw-actor{
