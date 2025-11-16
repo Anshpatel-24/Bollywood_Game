@@ -395,6 +395,7 @@ main{
 .js-draw-Hero{
     padding: 20% 0;
     border-right: 0.9vi solid limegreen;
+
     color: #027e02;
 }
 
@@ -637,7 +638,7 @@ main{
     /* border-radius: 15px; */
     border: 0.6vmin solid rgb(232, 244, 255);
     
-    transform: scale(0.95);
+    transform: scale(0.85);
 }
 
 .play-showing-Right{
@@ -870,7 +871,7 @@ footer{
 
 #random_movie:active{
     transform: scale(0.95);
-    border: 7px solid green;
+    border: 1 solid green;
 }
 
 
@@ -1005,13 +1006,13 @@ label {
 
 #play_again_btn:hover{
     color: darkgreen;
-    border: 4px solid rgb(0, 0, 92);
+    border: 4px solid green;
 
     transform: scale(1.1);
 }
 
 #play_again_btn:active{
-    border: 1 solid rgb(0, 0, 92);
+    border: 1 solid green;
 
     transform: scale(0.95);
 }
