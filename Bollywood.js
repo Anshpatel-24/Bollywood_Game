@@ -98,11 +98,12 @@ function loadCSV() {
         }
         // heroines.push(random.actress);
 
-
+        // let footerElement = document.querySelector("footer");
         let drawMovieName = document.querySelector('#draw-Movie');
 
         let drawActorsElement = document.querySelector('#draw-actor');
 
+        // footerElement.classList.remove('visibility-hidden');
     
         displayMovie.classList.add('js-display-bg-color');
         displayHero.classList.add('js-display-bg-color');
@@ -189,6 +190,8 @@ function loadCSV() {
 
 function movieName(){
 
+    // let footerElement = document.querySelector("footer");
+
     inputMovie_Value = document.querySelector('#movie-name').value;
     console.log(inputMovie_Value);
     // console.log(" ansh Patel  ".replaceAll(' ',''));
@@ -208,6 +211,8 @@ function movieName(){
         let randomMovieBTN = document.querySelector("#random_movie");
         // randomMovieBTN.classList.add('visibility-hidden');
         randomMovieBTN.style.display = 'none';
+
+        // footerElement.classList.remove('visibility-hidden');
     
         displayMovie.classList.add('js-display-bg-color');
         displayHero.classList.add('js-display-bg-color');
@@ -1046,7 +1051,7 @@ function startGame(){
 
         document.getElementById('hint-content').style.display = 'block';
 
-        if(failedGuessCount >= 8) {
+        if(failedGuessCount >= 5) {
             document.getElementById('summary').style.display = 'flex';
             summaryHintShown = true;
 
@@ -1142,6 +1147,7 @@ function movieNameCheck(){
         }else{
             if(!revealMovieName) {
                 showResult.innerText = `❌ Sorry, Guess another Movie. 😅`;
+                userMovie.value = "";
                 showResultPopup();
                 failedGuessCount++;
                 showHintButtonIfNeeded();
@@ -1183,6 +1189,7 @@ function HeroNameCheck(){
             if(guessHero === heroKey){
                 show_Right_Element.classList.remove('visibility-hidden');
                 showResult.innerText = '🎉Congratulations !!🎊 You are Guessing Right Hero.👏';
+                userHero.value = "";
                 showResultPopup();
 
                 glowInput('Play-guess-hero-name');
@@ -1218,6 +1225,7 @@ function HeroNameCheck(){
 
         if(!rightHeroFlag){
             showResult.innerText = `❌ Sorry, Guess another Hero. 😅`;
+            userHero.value = "";
             showResultPopup();
             failedGuessCount++;
             showHintButtonIfNeeded();
@@ -1251,6 +1259,7 @@ function heroineNameCheck(){
             if(guessHeroine === heroineKey){
                 show_Right_Element.classList.remove('visibility-hidden');
                 showResult.innerText = `🎉Congratulations !!🎊 You are Guessing Right Heroine.👏`;
+                userHeroine.value = "";
                 showResultPopup();
 
                 glowInput('Play-guess-heroine-name');
@@ -1285,6 +1294,7 @@ function heroineNameCheck(){
 
         if(!rightHeroineFlag){
             showResult.innerText = `❌ Sorry, Guess another Heroine. 😅`;
+            userHeroine.value = "";
             showResultPopup();
             failedGuessCount++;
             showHintButtonIfNeeded();
@@ -1304,12 +1314,12 @@ function showHintButtonIfNeeded(){
     const hintButton = document.getElementById('show-hint-btn');
     let summaryHint = document.getElementById('summary');
 
-    if (failedGuessCount >= 5 && !hintButtonShown) {
+    if (failedGuessCount >= 3 && !hintButtonShown) {
         hintButton.style.display = 'block';
 
         hintButton.classList.add('show-popup');
         // hintButtonShown = true;
-    } else if (failedGuessCount >= 10 && !summaryHintShown && hintButtonShown) {
+    } else if (failedGuessCount >= 6 && !summaryHintShown && hintButtonShown) {
 
         hintButton.classList.add('show-popup');
         
