@@ -1,28 +1,19 @@
 body{
     margin: 0;
     text-align: center;
-/*     height: 100vh; */
-/*     background-image: radial-gradient(transparent 20%, blue); */
+    /* height: 100vh; */
+    background-image: radial-gradient(transparent 20%, blue);
     background-image: url('https://static.vecteezy.com/system/resources/previews/002/511/111/non_2x/popcorn-drink-movie-film-3d-glasses-and-movie-ticket-vector.jpg');
-/*     background-repeat: no-repeat; */
+    background-repeat: no-repeat;
     background-attachment: fixed;
-/*     background-size: 100% 100%; */
+    background-size: 100% 100%;
     /* background: radial-gradient(rgb(66, 208, 255), rgb(179, 179, 254), rgb(143, 143, 245), rgb(101, 101, 236), rgb(58, 58, 186), rgba(0, 0, 139, 1)); */
     background-color:rgb(182, 208, 255);
-
-    background-position: center center;
-    background-repeat: no-repeat no-repeat;
-    background-size: cover;
-    transition: opacity 700ms;
 
     font-family: "Comfortaa", sans-serif;
     font-optical-sizing: auto;
     font-style: normal;
     font-weight: 900;
-}
-
-body[shown] {
-    opacity: 1;
 }
 
 main{
@@ -80,7 +71,7 @@ main{
     width: 70%;
     margin-top: 5dvh;
     padding: 3vmin;
-    border-radius: 2vmin;
+    border-radius: 1.5vmin;
     background-color:rgb(0, 132, 255);
     position: relative;
 }
@@ -371,16 +362,14 @@ main{
     position: relative;
     left: 15%;
     border-radius: 10px;
-    background-color: brown;
+    background-color: brown;  /* #1c7fb7 */
     padding: 1% 0;
 
     font-size: 1.2vi;
 }
 
 .js-drawing{
-    width: 10%;
-    position: relative;
-    left: 41%;
+    width: 15%;
     background-color: aquamarine;
     padding: 2%;
     margin: 2%;
@@ -388,11 +377,14 @@ main{
 
     font-size: 3.5vi;
     margin-top: 40px;
+    display: inline-block;
 }
 
 .js-draw-Movie{
-    border-radius: 19%;
-    border-bottom: 1vi solid darkgreen;
+    border-radius: 18%;
+    border-bottom: 1vi solid rgb(1, 191, 1);
+
+    color:darkmagenta;
 }
 
 #draw-Movie, #draw-Hero, #draw-Heroine{
@@ -403,17 +395,21 @@ main{
 
 .js-draw-Hero{
     padding: 20% 0;
-    border-right: 0.9vi solid darkgreen;
+    border-right: 0.9vi solid rgb(1, 191, 1);
+
+    color: #2196F3;
 }
 
 .js-draw-Heroine{
     padding: 20% 0;
-    border-left: 0.9vi solid darkgreen;
+    border-left: 0.9vi solid rgb(1, 191, 1);
+
+    color: palevioletred;
 }
 
 #draw-actor{
     display: grid;
-    grid-template-columns: 45% 45%;
+    grid-template-columns: 46% 46%;
 }
 
 .delete-btn-arrange{
@@ -613,6 +609,8 @@ main{
 
     font-size: 3.5vmin;
     padding: 0;
+
+    transition: transform 0.3s ease-in-out;
 }
 
 .play-check-btn::after{
@@ -634,11 +632,15 @@ main{
 
 .play-check-btn:hover{
     color: azure;
+
+    transform: scale(1.1);
 }
 
 .play-check-btn:active{
     /* border-radius: 15px; */
     border: 0.6vmin solid rgb(232, 244, 255);
+    
+    transform: scale(0.95);
 }
 
 .play-showing-Right{
@@ -841,6 +843,8 @@ footer{
     cursor: pointer;
     position: relative;
     z-index: 0;
+
+    transition: transform 0.3s ease-out;
 }
 
 #random_movie::after{
@@ -862,10 +866,13 @@ footer{
 
 #random_movie:hover{
     color: rgb(95, 1, 74);
-    border: 1vmin solid green;
+
+    transform: scale(1.1);
+    border: 1 solid green;
 }
 
 #random_movie:active{
+    transform: scale(0.95);
     border: 7px solid green;
 }
 
@@ -978,6 +985,8 @@ label {
     position: relative;
     z-index: 0;
     border: 3px solid darkred;
+
+    transition: transform 0.3s ease-in-out;
 }
 
 #play_again_btn::after{
@@ -1000,10 +1009,14 @@ label {
 #play_again_btn:hover{
     color: darkgreen;
     border: 4px solid rgb(0, 0, 92);
+
+    transform: scale(1.1);
 }
 
 #play_again_btn:active{
-    border: 6px solid rgb(0, 0, 92);
+    border: 1 solid rgb(0, 0, 92);
+
+    transform: scale(0.95);
 }
 
 #hint-content{
@@ -1063,17 +1076,23 @@ strong{
     border: 0.8vmin solid #523d00;
     font-weight: bold;
     display: none;
+
+    transition: transform 0.3s ease-out;
 }
 
 #show-hint-btn:hover{
     color: darkgreen;
     background-color: #d1f54d;
     border: 0.8vmin solid rgb(0, 0, 92);
+
+    transform: scale(1.1);
 }
 
 #show-hint-btn:active{
     background-color: #4de1f5;
-    border: 1vmin solid rgb(0, 0, 92);
+    border: 1 solid rgb(0, 0, 92);
+
+    transform: scale(0.95);
 }
 
 .hint_grid{
@@ -1110,6 +1129,8 @@ strong{
     position: relative;
     z-index: 0;
     border: 0.6vmin solid rgb(94, 61, 0);
+
+    transition: transform 0.3s ease-in-out;
 }
 
 #pass-movie-btn::after{
@@ -1133,11 +1154,15 @@ strong{
     color: darkgreen;
     /* background-color: #d1f54d; */
     border: 0.6vmin solid rgb(0, 0, 92);
+
+    transform: scale(1.1);
 }
 
 #pass-movie-btn:active{
     /* background-color: #4de1f5; */
-    border: 1vmin solid rgb(0, 0, 92);
+    border: 1 solid rgb(0, 0, 92);
+
+    transform: scale(0.95);
 }
 
 #score-bar{
@@ -1211,5 +1236,3 @@ strong{
     40% { box-shadow: 0 0 24px 8px #fff200, 0 0 48px 16px #00ffe7; }
     100% { box-shadow: 0 0 0 0 #fff200; }
 }
-
-
