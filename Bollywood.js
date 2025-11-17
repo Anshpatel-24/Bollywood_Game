@@ -62,7 +62,9 @@ let guessedHeroines = new Set();
 // Track already guessed correct movie for this round
 let guessedMovie = false;
 
+let hint_btn_active = false;
 function loadCSV() {
+    hint_btn_active = true;
     heros = [];
     heroines = [];
 
@@ -1150,6 +1152,9 @@ function movieNameCheck(){
                 userMovie.value = "";
                 showResultPopup();
                 failedGuessCount++;
+                if(failedGuessCount >= 7) {
+                    showPassMovieButton();
+                }
                 showHintButtonIfNeeded();
                 // Score: wrong movie -2
                 setScore(getScore() - 2);
@@ -1228,6 +1233,9 @@ function HeroNameCheck(){
             userHero.value = "";
             showResultPopup();
             failedGuessCount++;
+            if(failedGuessCount >= 7) {
+                showPassMovieButton();
+            }
             showHintButtonIfNeeded();
             // Score: wrong hero -1
             setScore(getScore() - 1);
@@ -1297,6 +1305,9 @@ function heroineNameCheck(){
             userHeroine.value = "";
             showResultPopup();
             failedGuessCount++;
+            if(failedGuessCount >= 7) {
+                showPassMovieButton();
+            }
             showHintButtonIfNeeded();
             // Score: wrong heroine -1
             setScore(getScore() - 1);
@@ -1314,12 +1325,12 @@ function showHintButtonIfNeeded(){
     const hintButton = document.getElementById('show-hint-btn');
     let summaryHint = document.getElementById('summary');
 
-    if (failedGuessCount >= 3 && !hintButtonShown) {
+    if (failedGuessCount >= 3 && !hintButtonShown && hint_btn_active) {
         hintButton.style.display = 'block';
 
         hintButton.classList.add('show-popup');
         // hintButtonShown = true;
-    } else if (failedGuessCount >= 6 && !summaryHintShown && hintButtonShown) {
+    } else if (failedGuessCount >= 6 && !summaryHintShown && hintButtonShown && hint_btn_active) {
 
         hintButton.classList.add('show-popup');
         
