@@ -147,6 +147,8 @@ main{
 
     min-width: 5%;
     font-size: 2.5vmin;
+
+    transition: transform 0.3s ease-out;
 }
 
 .actor_btn::after{
@@ -173,6 +175,7 @@ main{
 .actor_btn:active{
     /* border-radius: 15px; */
     border: 0.5vmin solid rgb(232, 244, 255);
+    transform: scale(0.80);
 }
 
 #hero-name, #heroine-name{
@@ -459,6 +462,7 @@ main{
     z-index: 0;
     border: 3px solid darkred;
 
+    transition: transform 0.3s ease-out;
     /* text-shadow: 1px 1px 2px #795548; */
 }
 
@@ -481,11 +485,13 @@ main{
 
 #lets-play-btn:hover{
     color: darkgreen;
-    border: 4px solid rgb(0, 0, 92);
+    border: 4px solid darkgreen;
+    transform: scale(1.1);
 }
 
 #lets-play-btn:active{
-    border: 6px solid rgb(0, 0, 92);
+    border: 1 solid darkgreen;
+    transform: scale(0.95);
 }
 
 
@@ -630,15 +636,13 @@ main{
 
 .play-check-btn:hover{
     color: azure;
-
-    transform: scale(1.1);
 }
 
 .play-check-btn:active{
     /* border-radius: 15px; */
     border: 0.6vmin solid rgb(232, 244, 255);
     
-    transform: scale(0.85);
+    transform: scale(0.80);
 }
 
 .play-showing-Right{
